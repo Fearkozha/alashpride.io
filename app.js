@@ -24,7 +24,7 @@ const isChampion = f => data.divisions.some(d=>d.champion===f.id);
 const portrait = f => `<img class="portrait ${f.photo?'':'placeholder'}" src="${esc(f.photo||'fighter-placeholder.svg')}" alt="${f.photo?esc(f.name):'Фото бойца пока не добавлено'}" loading="lazy">`;
 const record = f => `<span class="record" aria-label="${f.record[0]} побед, ${f.record[1]} поражений, ${f.record[2]} ничьих"><b>${f.record[0]}</b><i> - </i><b>${f.record[1]}</b><i> - </i><b>${f.record[2]}</b></span>`;
 const flag = f => `<span class="country-code">${esc(f.code)}</span>`;
-const notice = () => data.status==='preview'?'<p class="preview-note">МАКЕТ · Имена и рекорды из референса. Официальные данные ещё не добавлены.</p>':'';
+const notice = () => (window.ALASH_RANKING_ERROR?'<p class="preview-note">Не удалось загрузить актуальный рейтинг. Ниже — демонстрационная версия. Попробуйте обновить страницу.</p>':'')+(data.status==='preview'?'<p class="preview-note">МАКЕТ · Имена и рекорды из референса. Официальные данные ещё не добавлены.</p>':'');
 const heading=(title,subtitle)=>`<div class="page-heading"><p class="eyebrow">ALASH PRIDE LEAGUE</p><h1>${title}</h1><p>${subtitle}</p></div>`;
 const template=name=>document.querySelector(`#template-${name}`).innerHTML;
 const primary=(href,label)=>`<a class="primary-button" href="${href}">${label}<span aria-hidden="true">→</span></a>`;
@@ -34,7 +34,7 @@ function championCard(d){
  return `<article class="champion-card">${portrait(f)}<div class="champion-copy"><span class="champion-marker">${icon('champions')} ЧЕМПИОН</span><h3>${esc(f.name)}</h3><p>${flag(f)} ${esc(f.country)}</p>${record(f)}<small>${esc(f.team||'Команда не указана')}</small></div>${primary(`#fighter/${f.id}`,'ПРОФИЛЬ ЧЕМПИОНА')}</article>`;
 }
 function rankingBlock(d){
- const ids=d.ranking.filter(id=>id!==d.champion);
+ const ids=d.ranking.map(id=>id===d.champion?null:id);
  return `<section class="division-block" aria-label="${esc(d.name)}"><h2>${d.name} <span>— ${d.limit}</span></h2>${championCard(d)}<table class="rank-table"><caption class="sr-only">Топ-10: ${d.name}. Чемпион отдельно.</caption><thead><tr><th scope="col">#</th><th scope="col">БОЕЦ</th><th scope="col">СТРАНА</th><th scope="col">РЕКОРД</th></tr></thead><tbody>${Array.from({length:10},(_,i)=>{const f=fighterById(ids[i]);return `<tr class="${f?'':'unfilled'}"><td>${i+1}</td><td>${f?`<a href="#fighter/${f.id}">${esc(f.name)}<span class="row-arrow">↗</span></a>`:'Будет объявлен'}</td><td>${f?flag(f):'—'}</td><td>${f?f.record.join(' - '):'—'}</td></tr>`;}).join('')}</tbody></table></section>`;
 }
 function rankings(params){
@@ -90,4 +90,5 @@ document.addEventListener('input',event=>{if(event.target.id==='fighter-search')
 document.addEventListener('change',event=>{if(event.target.id==='weight-filter')filters.weight=event.target.value;else if(event.target.id==='country-filter')filters.country=event.target.value;else return;updateFighters();});
 document.addEventListener('keydown',event=>{if(!event.target.matches('[data-profile-tab]'))return;const keys=['ArrowRight','ArrowLeft','Home','End'];if(!keys.includes(event.key))return;event.preventDefault();const tabs=['overview','fights','stats'];const i=tabs.indexOf(event.target.dataset.profileTab);selectProfileTab(event.key==='Home'?tabs[0]:event.key==='End'?tabs[2]:tabs[(i+(event.key==='ArrowRight'?1:2))%3],true);});
 window.addEventListener('hashchange',render);
+window.addEventListener('alash:rankings',()=>{if(/^#(rankings|champions|fighters|fighter\/)/.test(location.hash)){const y=window.scrollY;render();window.scrollTo({top:y,behavior:'instant'});}});
 render();
