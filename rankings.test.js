@@ -9,3 +9,5 @@ test('a fighter from another weight cannot be assigned',()=>{const d=fixture();d
 test('unknown fighter IDs and more than ten contenders are rejected',()=>{const d=fixture();d.divisions[0].ranking=['missing'];assert.throws(()=>validate(d));d.divisions[0].ranking=Array(11).fill(null);assert.throws(()=>validate(d));});
 test('negative records and an unrecognized status are rejected',()=>{const d=fixture();d.fighters[0].record[1]=-1;assert.throws(()=>validate(d));d.fighters[0].record[1]=0;d.status='official';assert.throws(()=>validate(d));});
 test('vacancies and unranked fighters are valid',()=>{assert.equal(validate(fixture()).divisions[0].ranking[1],null);});
+test('unknown records and a fighter in two categories are valid',()=>{const d=fixture();d.fighters[1].record=[null,null,null];d.fighters[1].divisions=['70','66'];d.divisions[1].ranking=['first'];assert.doesNotThrow(()=>validate(d));});
+test('a multi-weight profile cannot name an unknown category',()=>{const d=fixture();d.fighters[1].divisions=['70','999'];assert.throws(()=>validate(d));});
