@@ -1,8 +1,8 @@
-// Owner-supplied ranking, 2026-10-06. Unknown statistics are intentionally null.
+// Owner-supplied ranking and countries, 2026-10-07. Unknown statistics remain null.
 window.ALASH_DATA = {
   "status": "verified",
   "source": "Рейтинг предоставлен владельцем сайта",
-  "updatedOn": "2026-10-06",
+  "updatedOn": "2026-10-07",
   "divisions": [
     {
       "id": "57",
@@ -141,8 +141,8 @@ window.ALASH_DATA = {
       "divisions": [
         "57"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -150,7 +150,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "emin-huseynov",
@@ -159,8 +162,8 @@ window.ALASH_DATA = {
       "divisions": [
         "57"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Азербайджан",
+      "code": "AZE",
       "record": [
         null,
         null,
@@ -168,7 +171,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "AZE"
+      ]
     },
     {
       "id": "teimur-zhaparov",
@@ -177,8 +183,8 @@ window.ALASH_DATA = {
       "divisions": [
         "57"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -186,7 +192,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "sultanbek-orozmamat-uulu",
@@ -195,8 +204,8 @@ window.ALASH_DATA = {
       "divisions": [
         "57"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Кыргызстан",
+      "code": "KGZ",
       "record": [
         null,
         null,
@@ -204,7 +213,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KGZ"
+      ]
     },
     {
       "id": "bahodir-askerov",
@@ -213,8 +225,8 @@ window.ALASH_DATA = {
       "divisions": [
         "57"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -222,7 +234,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "dias-nurlanov",
@@ -231,8 +246,8 @@ window.ALASH_DATA = {
       "divisions": [
         "57"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -240,7 +255,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "nariman-kalmataev",
@@ -249,8 +267,8 @@ window.ALASH_DATA = {
       "divisions": [
         "57"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -258,7 +276,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "khasan-anvarov",
@@ -267,8 +288,8 @@ window.ALASH_DATA = {
       "divisions": [
         "57"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Узбекистан",
+      "code": "UZB",
       "record": [
         null,
         null,
@@ -276,7 +297,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "UZB"
+      ]
     },
     {
       "id": "gadzhimurad-gasanguseinov",
@@ -285,8 +309,8 @@ window.ALASH_DATA = {
       "divisions": [
         "57"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Россия",
+      "code": "RUS",
       "record": [
         null,
         null,
@@ -294,7 +318,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "RUS"
+      ]
     },
     {
       "id": "nurlubek-musurtali",
@@ -303,8 +330,8 @@ window.ALASH_DATA = {
       "divisions": [
         "57"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -312,7 +339,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "ilmiyamin-dzhavatov",
@@ -321,8 +351,8 @@ window.ALASH_DATA = {
       "divisions": [
         "57"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Россия",
+      "code": "RUS",
       "record": [
         null,
         null,
@@ -330,7 +360,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "RUS"
+      ]
     },
     {
       "id": "zhanibek-tynyshtyk",
@@ -339,8 +372,8 @@ window.ALASH_DATA = {
       "divisions": [
         "61"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -348,7 +381,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "bekzat-zhassiya",
@@ -357,8 +393,8 @@ window.ALASH_DATA = {
       "divisions": [
         "61"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -366,7 +402,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "khozhakbar-tashkhodzhaev",
@@ -375,8 +414,8 @@ window.ALASH_DATA = {
       "divisions": [
         "61"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Кыргызстан",
+      "code": "KGZ",
       "record": [
         null,
         null,
@@ -384,7 +423,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KGZ"
+      ]
     },
     {
       "id": "georgiy-maissuradze",
@@ -393,8 +435,8 @@ window.ALASH_DATA = {
       "divisions": [
         "61"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан / Грузия",
+      "code": "KAZ / GEO",
       "record": [
         null,
         null,
@@ -402,7 +444,11 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ",
+        "GEO"
+      ]
     },
     {
       "id": "erkhan-zhumabaev",
@@ -411,8 +457,8 @@ window.ALASH_DATA = {
       "divisions": [
         "61"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -420,7 +466,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "tagaibek-sayfidinov",
@@ -429,8 +478,8 @@ window.ALASH_DATA = {
       "divisions": [
         "61"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Кыргызстан",
+      "code": "KGZ",
       "record": [
         null,
         null,
@@ -438,7 +487,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KGZ"
+      ]
     },
     {
       "id": "nodirbek-saitov",
@@ -447,8 +499,8 @@ window.ALASH_DATA = {
       "divisions": [
         "61"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Узбекистан",
+      "code": "UZB",
       "record": [
         null,
         null,
@@ -456,7 +508,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "UZB"
+      ]
     },
     {
       "id": "tatibek-raimbekov",
@@ -465,8 +520,8 @@ window.ALASH_DATA = {
       "divisions": [
         "61"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -474,7 +529,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "dosbol-elegen",
@@ -483,8 +541,8 @@ window.ALASH_DATA = {
       "divisions": [
         "61"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -492,7 +550,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "dauren-zhakypbek",
@@ -501,8 +562,8 @@ window.ALASH_DATA = {
       "divisions": [
         "61"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -510,7 +571,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "salimzhan-abylaikhan",
@@ -519,8 +583,8 @@ window.ALASH_DATA = {
       "divisions": [
         "61"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -528,7 +592,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "asyljan-tasket",
@@ -537,8 +604,8 @@ window.ALASH_DATA = {
       "divisions": [
         "66"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -546,7 +613,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "kirill-litvinenko",
@@ -555,8 +625,8 @@ window.ALASH_DATA = {
       "divisions": [
         "66"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -564,7 +634,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "abdimalik-bayzatbek",
@@ -573,8 +646,8 @@ window.ALASH_DATA = {
       "divisions": [
         "66"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Кыргызстан",
+      "code": "KGZ",
       "record": [
         null,
         null,
@@ -582,7 +655,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KGZ"
+      ]
     },
     {
       "id": "alexey-meshkov",
@@ -591,8 +667,8 @@ window.ALASH_DATA = {
       "divisions": [
         "66"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Россия",
+      "code": "RUS",
       "record": [
         null,
         null,
@@ -600,7 +676,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "RUS"
+      ]
     },
     {
       "id": "talant-esdaulet",
@@ -609,8 +688,8 @@ window.ALASH_DATA = {
       "divisions": [
         "66"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -618,7 +697,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "bekbolat-abishev",
@@ -627,8 +709,8 @@ window.ALASH_DATA = {
       "divisions": [
         "66"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -636,7 +718,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "sabyr-bekdaulet",
@@ -645,8 +730,8 @@ window.ALASH_DATA = {
       "divisions": [
         "66"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -654,7 +739,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "muslim-nurmagomedov",
@@ -663,8 +751,8 @@ window.ALASH_DATA = {
       "divisions": [
         "66"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Россия",
+      "code": "RUS",
       "record": [
         null,
         null,
@@ -672,7 +760,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "RUS"
+      ]
     },
     {
       "id": "dosbol-erezhep",
@@ -681,8 +772,8 @@ window.ALASH_DATA = {
       "divisions": [
         "66"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -690,7 +781,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "mavlonbek-yuldashev",
@@ -699,8 +793,8 @@ window.ALASH_DATA = {
       "divisions": [
         "66"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Узбекистан",
+      "code": "UZB",
       "record": [
         null,
         null,
@@ -708,7 +802,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "UZB"
+      ]
     },
     {
       "id": "fakhriddin-hashimzhonov",
@@ -717,8 +814,8 @@ window.ALASH_DATA = {
       "divisions": [
         "66"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Узбекистан",
+      "code": "UZB",
       "record": [
         null,
         null,
@@ -726,7 +823,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "UZB"
+      ]
     },
     {
       "id": "kanybek-janybekov-uulu",
@@ -735,8 +835,8 @@ window.ALASH_DATA = {
       "divisions": [
         "70"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Кыргызстан",
+      "code": "KGZ",
       "record": [
         null,
         null,
@@ -744,7 +844,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KGZ"
+      ]
     },
     {
       "id": "sultan-tagiev",
@@ -753,8 +856,8 @@ window.ALASH_DATA = {
       "divisions": [
         "70"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -762,7 +865,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "ernar-alimbekov",
@@ -771,8 +877,8 @@ window.ALASH_DATA = {
       "divisions": [
         "70"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -780,7 +886,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "ramazan-kadiev",
@@ -790,8 +899,8 @@ window.ALASH_DATA = {
         "70",
         "77"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Россия",
+      "code": "RUS",
       "record": [
         null,
         null,
@@ -799,7 +908,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "RUS"
+      ]
     },
     {
       "id": "kudaibergenov-rustem",
@@ -808,8 +920,8 @@ window.ALASH_DATA = {
       "divisions": [
         "70"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -817,7 +929,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "smko-sanuev",
@@ -826,8 +941,8 @@ window.ALASH_DATA = {
       "divisions": [
         "70"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Кыргызстан",
+      "code": "KGZ",
       "record": [
         null,
         null,
@@ -835,7 +950,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KGZ"
+      ]
     },
     {
       "id": "davlatbek-abdukaharov",
@@ -844,8 +962,8 @@ window.ALASH_DATA = {
       "divisions": [
         "70"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -853,7 +971,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "askhat-akimov",
@@ -862,8 +983,8 @@ window.ALASH_DATA = {
       "divisions": [
         "70"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -871,7 +992,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "yerkingali-burkutalin",
@@ -880,8 +1004,8 @@ window.ALASH_DATA = {
       "divisions": [
         "70"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -889,7 +1013,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "muhammadumar-abdurakhmonov",
@@ -898,8 +1025,8 @@ window.ALASH_DATA = {
       "divisions": [
         "70"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Узбекистан",
+      "code": "UZB",
       "record": [
         null,
         null,
@@ -907,7 +1034,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "UZB"
+      ]
     },
     {
       "id": "aslan-iskanderov",
@@ -916,8 +1046,8 @@ window.ALASH_DATA = {
       "divisions": [
         "70"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -925,7 +1055,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "abdurakhman-umirzakov",
@@ -934,8 +1067,8 @@ window.ALASH_DATA = {
       "divisions": [
         "77"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -943,7 +1076,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "beybarys-oraz",
@@ -952,8 +1088,8 @@ window.ALASH_DATA = {
       "divisions": [
         "77"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -961,7 +1097,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "alan-patrick",
@@ -970,8 +1109,8 @@ window.ALASH_DATA = {
       "divisions": [
         "77"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Бразилия",
+      "code": "BRA",
       "record": [
         null,
         null,
@@ -979,7 +1118,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "BRA"
+      ]
     },
     {
       "id": "islyar-aliev",
@@ -988,8 +1130,8 @@ window.ALASH_DATA = {
       "divisions": [
         "77"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Кыргызстан",
+      "code": "KGZ",
       "record": [
         null,
         null,
@@ -997,7 +1139,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KGZ"
+      ]
     },
     {
       "id": "doskali-ashirov",
@@ -1006,8 +1151,8 @@ window.ALASH_DATA = {
       "divisions": [
         "77"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -1015,7 +1160,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "manap-nurkozha",
@@ -1024,8 +1172,8 @@ window.ALASH_DATA = {
       "divisions": [
         "77"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -1033,7 +1181,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "asadbek-sodikov",
@@ -1042,8 +1193,8 @@ window.ALASH_DATA = {
       "divisions": [
         "77"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Узбекистан",
+      "code": "UZB",
       "record": [
         null,
         null,
@@ -1051,7 +1202,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "UZB"
+      ]
     },
     {
       "id": "akhror-abduganiev",
@@ -1060,8 +1214,8 @@ window.ALASH_DATA = {
       "divisions": [
         "77"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Узбекистан",
+      "code": "UZB",
       "record": [
         null,
         null,
@@ -1069,7 +1223,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "UZB"
+      ]
     },
     {
       "id": "ildar-shapirov",
@@ -1078,8 +1235,8 @@ window.ALASH_DATA = {
       "divisions": [
         "77"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -1087,7 +1244,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "nurzhas-dauletyar",
@@ -1096,8 +1256,8 @@ window.ALASH_DATA = {
       "divisions": [
         "84"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -1105,7 +1265,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "khusan-urakov",
@@ -1114,8 +1277,8 @@ window.ALASH_DATA = {
       "divisions": [
         "84"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Узбекистан",
+      "code": "UZB",
       "record": [
         null,
         null,
@@ -1123,7 +1286,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "UZB"
+      ]
     },
     {
       "id": "alibi-pernebek",
@@ -1132,8 +1298,8 @@ window.ALASH_DATA = {
       "divisions": [
         "84"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -1141,7 +1307,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "yuriy-titorenko",
@@ -1150,8 +1319,8 @@ window.ALASH_DATA = {
       "divisions": [
         "84"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -1159,7 +1328,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "ermakhan-orazymbetov",
@@ -1168,8 +1340,8 @@ window.ALASH_DATA = {
       "divisions": [
         "84"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -1177,7 +1349,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "murad-abdurakhmanov",
@@ -1186,8 +1361,8 @@ window.ALASH_DATA = {
       "divisions": [
         "93"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -1195,7 +1370,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "adilet-omurbek",
@@ -1204,8 +1382,8 @@ window.ALASH_DATA = {
       "divisions": [
         "93"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Кыргызстан",
+      "code": "KGZ",
       "record": [
         null,
         null,
@@ -1213,7 +1391,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KGZ"
+      ]
     },
     {
       "id": "abylai-abdyrasyl",
@@ -1222,8 +1403,8 @@ window.ALASH_DATA = {
       "divisions": [
         "93"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -1231,7 +1412,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "firdavs-murotaliev",
@@ -1240,8 +1424,8 @@ window.ALASH_DATA = {
       "divisions": [
         "93"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Узбекистан",
+      "code": "UZB",
       "record": [
         null,
         null,
@@ -1249,7 +1433,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "UZB"
+      ]
     },
     {
       "id": "nurkadyr-askaruly",
@@ -1258,8 +1445,8 @@ window.ALASH_DATA = {
       "divisions": [
         "93"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -1267,7 +1454,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "rassul-khatayev",
@@ -1276,8 +1466,8 @@ window.ALASH_DATA = {
       "divisions": [
         "120"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -1285,7 +1475,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "alan-makitov",
@@ -1294,8 +1487,8 @@ window.ALASH_DATA = {
       "divisions": [
         "120"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Россия",
+      "code": "RUS",
       "record": [
         null,
         null,
@@ -1303,7 +1496,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "RUS"
+      ]
     },
     {
       "id": "leonardo-guimaraes",
@@ -1312,8 +1508,8 @@ window.ALASH_DATA = {
       "divisions": [
         "120"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Бразилия",
+      "code": "BRA",
       "record": [
         null,
         null,
@@ -1321,7 +1517,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "BRA"
+      ]
     },
     {
       "id": "farkhad-zholdassov",
@@ -1330,8 +1529,8 @@ window.ALASH_DATA = {
       "divisions": [
         "120"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -1339,7 +1538,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "asli-ali-samat",
@@ -1348,8 +1550,8 @@ window.ALASH_DATA = {
       "divisions": [
         "120"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Казахстан",
+      "code": "KAZ",
       "record": [
         null,
         null,
@@ -1357,7 +1559,10 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "KAZ"
+      ]
     },
     {
       "id": "sanzhar-madaminov",
@@ -1366,8 +1571,8 @@ window.ALASH_DATA = {
       "divisions": [
         "120"
       ],
-      "country": "Страна не указана",
-      "code": "—",
+      "country": "Узбекистан",
+      "code": "UZB",
       "record": [
         null,
         null,
@@ -1375,7 +1580,40 @@ window.ALASH_DATA = {
       ],
       "photo": null,
       "fights": [],
-      "finishes": null
+      "finishes": null,
+      "countries": [
+        "UZB"
+      ]
     }
-  ]
+  ],
+  "countries": {
+    "KAZ": {
+      "name": "Казахстан",
+      "flag": "kz"
+    },
+    "RUS": {
+      "name": "Россия",
+      "flag": "ru"
+    },
+    "UZB": {
+      "name": "Узбекистан",
+      "flag": "uz"
+    },
+    "KGZ": {
+      "name": "Кыргызстан",
+      "flag": "kg"
+    },
+    "AZE": {
+      "name": "Азербайджан",
+      "flag": "az"
+    },
+    "BRA": {
+      "name": "Бразилия",
+      "flag": "br"
+    },
+    "GEO": {
+      "name": "Грузия",
+      "flag": "ge"
+    }
+  }
 };
