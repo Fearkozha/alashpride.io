@@ -56,7 +56,7 @@ function editorView() {
   root.querySelector('#add-fighter').onsubmit = event => {
     event.preventDefault(); const fields = new FormData(event.target);
     const countries = {unknown:'Страна не указана',KZ:'Казахстан',KG:'Кыргызстан',UZ:'Узбекистан',RU:'Россия',BR:'Бразилия',AZ:'Азербайджан',GE:'Грузия'};
-    const fighter = {id: `fighter-${crypto.randomUUID()}`,name:String(fields.get('name')).trim(),division,country:countries[fields.get('country')],code:fields.get('country')==='unknown'?'—':fields.get('country'),record:[0,1,2].map(i=>fields.get(`record${i}`)===''?null:Number(fields.get(`record${i}`))),photo:null,fights:[],finishes:null};
+    const fighter = {id: `fighter-${crypto.randomUUID()}`,name:String(fields.get('name')).trim(),division,country:countries[fields.get('country')],code:fields.get('country')==='unknown'?'—':fields.get('country'),record:[0,1,2].map(i=>fields.get(`record${i}`)===''?null:Number(fields.get(`record${i}`))),leagueRecord:[null,null,null],photo:null,fights:[],finishes:null};
     try {validate({...model,fighters:[...model.fighters,fighter]}); model.fighters.push(fighter); editFighterId=fighter.id; changed(); editorView(); message('Боец добавлен. Выбери его место и опубликуй изменения.');} catch(error) {message(error.message);}
   };
   root.querySelector('#publish').onclick = publish;
@@ -98,7 +98,7 @@ window.addEventListener('beforeunload',event=>{if(dirty||busy){event.preventDefa
 const mediaSlots = [['hero','Главный баннер и обложка видео','hero.jpg'],['league','Фото лиги и обложка новостей','league.jpg'],['logo','Логотип сайта','logo.jpg']];
 function imageControl(kind,id,url,title){
  const fighter=kind==='fighter'?model.fighters.find(f=>f.id===id):null;
- const fields=fighter?`<fieldset class="record-fields"><legend>Рекорд бойца</legend><div>${['Победы','Поражения','Ничьи'].map((label,i)=>`<label>${label}<input type="text" inputmode="numeric" pattern="[0-9]*" data-record="${i}" data-fighter="${esc(id)}" value="${esc(recordDrafts[`${id}:${i}`] ?? fighter.record[i] ?? '')}" placeholder="—" aria-label="${label}: ${esc(title)}"></label>`).join('')}</div></fieldset>`:'';
+ const fields=fighter?`<div class="record-editor">${[['record','Общий рекорд'],['leagueRecord','Alash Pride']].map(([type,caption])=>`<fieldset class="record-fields"><legend>${type==='leagueRecord'?'<img src="logo.jpg" width="17" height="17" alt="">':''}${caption}</legend><div>${['Победы','Поражения','Ничьи'].map((label,i)=>`<label>${label}<input type="text" inputmode="numeric" pattern="[0-9]*" data-record="${i}" data-record-type="${type}" data-fighter="${esc(id)}" value="${esc(recordDrafts[`${id}:${type}:${i}`] ?? (fighter[type]||[null,null,null])[i] ?? '')}" placeholder="—" aria-label="${caption}, ${label}: ${esc(title)}"></label>`).join('')}</div></fieldset>`).join('')}</div>`:'';
 
  return `<article class="media-card"><img src="${esc(url)}" alt="${esc(title)}" class="media-preview ${kind==='fighter'?'fighter-preview':''}"><div><h3>${esc(title)}</h3>${fighter?`<label>Имя бойца<input data-fighter-name="${esc(id)}" value="${esc(fighter.name)}" maxlength="100"></label>`:``}${fields}<label class="upload-label">Выбрать фото<input type="file" accept="image/jpeg,image/png,image/webp" data-upload="${kind}" data-id="${esc(id)}"></label><button type="button" data-reset-image="${kind}" data-id="${esc(id)}">${kind==='fighter'?'Убрать фото':'Вернуть исходное'}</button></div></article>`;
 }
@@ -118,12 +118,12 @@ function enhanceEditor(){
 function bindImages(panel){
  panel.querySelectorAll('[data-fighter-name]').forEach(input=>input.oninput=()=>{model.fighters.find(f=>f.id===input.dataset.fighterName).name=input.value;changed();});
  panel.querySelectorAll('[data-record]').forEach(input=>input.oninput=()=>{
-  const id=input.dataset.fighter,i=Number(input.dataset.record),value=input.value;
-  recordDrafts[`${id}:${i}`]=value;
+  const id=input.dataset.fighter,i=Number(input.dataset.record),type=input.dataset.recordType,value=input.value;
+  recordDrafts[`${id}:${type}:${i}`]=value;
   const valid=value===''||(/^\d+$/.test(value)&&Number.isSafeInteger(Number(value)));
   input.setCustomValidity(valid?'':'Введи целое число от 0 или оставь поле пустым.');
   input.setAttribute('aria-invalid',String(!valid));
-  if(valid)model.fighters.find(f=>f.id===id).record[i]=value===''?null:Number(value);
+  if(valid){const fighter=model.fighters.find(f=>f.id===id);fighter[type] ||= [null,null,null];fighter[type][i]=value===''?null:Number(value);}
   changed();
  });
 

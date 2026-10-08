@@ -22,7 +22,8 @@ const fighterById = id => data.fighters.find(f=>f.id===id);
 const divisionById = id => data.divisions.find(d=>d.id===id);
 const isChampion = f => data.divisions.some(d=>d.champion===f.id);
 const portrait = f => `<img class="portrait ${f.photo?'':'placeholder'}" src="${esc(f.photo||'fighter-placeholder.svg')}" alt="${f.photo?esc(f.name):'Фото бойца пока не добавлено'}" loading="lazy">`;
-const record = f => `<span class="record" aria-label="${f.record[0] ?? '—'} побед, ${f.record[1] ?? '—'} поражений, ${f.record[2] ?? '—'} ничьих"><b>${f.record[0] ?? '—'}</b><i> - </i><b>${f.record[1] ?? '—'}</b><i> - </i><b>${f.record[2] ?? '—'}</b></span>`;
+const recordNumbers = values => `<span class="record" aria-label="${values[0] ?? '—'} побед, ${values[1] ?? '—'} поражений, ${values[2] ?? '—'} ничьих"><b>${values[0] ?? '—'}</b><i> - </i><b>${values[1] ?? '—'}</b><i> - </i><b>${values[2] ?? '—'}</b></span>`;
+const record = f => `<div class="record-pair"><div class="record-line"><span class="record-label">ОБЩИЙ</span>${recordNumbers(f.record)}</div><div class="record-line league-record"><span class="record-label"><img src="logo.jpg" width="17" height="17" alt="">ALASH PRIDE</span>${recordNumbers(f.leagueRecord || [null,null,null])}</div></div>`;
 // Preserve the owner's country assignments when a legacy admin payload has no countries.
 const countryCatalog = data.countries;
 const bundledCountries = new Map(data.fighters.map(f => [f.id, f.countries]));
@@ -43,11 +44,11 @@ const primary=(href,label)=>`<a class="primary-button" href="${href}">${label}<s
 function championCard(d){
  const f=fighterById(d.champion);
  if(!f)return `<div class="champion-card vacant"><span class="champion-marker">${icon('champions')} ЧЕМПИОН</span><h3>Скоро объявим</h3><p>Чемпион категории ${d.limit} ещё не добавлен</p></div>`;
- return `<article class="champion-card">${portrait(f)}<div class="champion-copy"><span class="champion-marker">${icon('champions')} ЧЕМПИОН</span><h3>${esc(f.name)}</h3><p>${flag(f)}</p>${record(f)}<small>${esc(f.team||'Команда не указана')}</small></div></article>`;
+ return `<article class="champion-card">${portrait(f)}<div class="champion-copy"><span class="champion-marker">${icon('champions')} ЧЕМПИОН</span><h3>${esc(f.name)}</h3><p>${flag(f)}</p>${record(f)}</div></article>`;
 }
 function rankingBlock(d){
  const ids=d.ranking.map(id=>id===d.champion?null:id);
- return `<section class="division-block" aria-label="${esc(d.name)}"><h2>${d.name} <span>— ${d.limit}</span></h2>${championCard(d)}<table class="rank-table"><caption class="sr-only">Топ-10: ${d.name}. Чемпион отдельно.</caption><thead><tr><th scope="col">#</th><th scope="col">БОЕЦ</th><th scope="col">СТРАНА</th><th scope="col">РЕКОРД</th></tr></thead><tbody>${Array.from({length:10},(_,i)=>{const f=fighterById(ids[i]);return `<tr class="${f?'':'unfilled'}"><td>${i+1}</td><td>${f?`<span class="rank-fighter">${portrait(f)}<span>${esc(f.name)}</span></span>`:'Будет объявлен'}</td><td>${f?flag(f):'—'}</td><td>${f?f.record.map(n=>n??'—').join(' - '):'—'}</td></tr>`;}).join('')}</tbody></table></section>`;
+ return `<section class="division-block" aria-label="${esc(d.name)}"><h2>${d.name} <span>— ${d.limit}</span></h2>${championCard(d)}<table class="rank-table"><caption class="sr-only">Топ-10: ${d.name}. Чемпион отдельно.</caption><thead><tr><th scope="col">#</th><th scope="col">БОЕЦ</th><th scope="col">СТРАНА</th><th scope="col">РЕКОРДЫ</th></tr></thead><tbody>${Array.from({length:10},(_,i)=>{const f=fighterById(ids[i]);return `<tr class="${f?'':'unfilled'}"><td>${i+1}</td><td>${f?`<span class="rank-fighter">${portrait(f)}<span>${esc(f.name)}</span></span>`:'Будет объявлен'}</td><td>${f?flag(f):'—'}</td><td>${f?record(f):'—'}</td></tr>`;}).join('')}</tbody></table></section>`;
 }
 function rankings(params){
  const selected=params.get('weight')||'70';

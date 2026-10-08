@@ -4,7 +4,7 @@ export function validate(data) {
   const fighters = new Map(data.fighters.map(f => [f.id, f]));
   if (divisions.size !== data.divisions.length || fighters.size !== data.fighters.length) throw Error('Идентификаторы не должны повторяться.');
   for (const f of data.fighters) {
-    if (!/^[a-z0-9-]+$/.test(f.id) || typeof f.name !== 'string' || !f.name.trim() || !divisions.has(f.division) || (f.divisions && (!Array.isArray(f.divisions) || !f.divisions.includes(f.division) || new Set(f.divisions).size !== f.divisions.length || f.divisions.some(id => !divisions.has(id)))) || !Array.isArray(f.fights) || !Array.isArray(f.record) || f.record.length !== 3 || f.record.some(n => n !== null && (!Number.isInteger(n) || n < 0))) throw Error('Проверь имя, категорию и рекорд бойца.');
+    if (!/^[a-z0-9-]+$/.test(f.id) || typeof f.name !== 'string' || !f.name.trim() || !divisions.has(f.division) || (f.divisions && (!Array.isArray(f.divisions) || !f.divisions.includes(f.division) || new Set(f.divisions).size !== f.divisions.length || f.divisions.some(id => !divisions.has(id)))) || !Array.isArray(f.fights) || !Array.isArray(f.record) || f.record.length !== 3 || f.record.some(n => n !== null && (!Number.isSafeInteger(n) || n < 0)) || (f.leagueRecord !== undefined && (!Array.isArray(f.leagueRecord) || f.leagueRecord.length !== 3 || f.leagueRecord.some(n => n !== null && (!Number.isSafeInteger(n) || n < 0))))) throw Error('Проверь имя, категорию и рекорд бойца.');
   }
   for (const d of data.divisions) {
     if (!Array.isArray(d.ranking) || d.ranking.length > 10) throw Error('В категории может быть не больше десяти претендентов.');
