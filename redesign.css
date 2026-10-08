@@ -28,3 +28,5 @@
 }
 
 @media(max-width:760px){.rank-table td:last-child{font-size:11px;letter-spacing:-.02em}}
+
+.rank-fighter{display:flex;align-items:center;gap:10px}.rank-fighter .portrait{width:34px;height:42px;object-fit:cover;flex-shrink:0}.fighter-card{cursor:default}
