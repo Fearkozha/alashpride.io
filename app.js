@@ -70,7 +70,8 @@ function render(){
  const renders={home,rankings:()=>rankings(params),fighters,champions,news,events:()=>template('events'),tickets:()=>template('tickets'),results:()=>template('results'),video:()=>template('video'),about:()=>template('about')};
  main.innerHTML=(renders[route]||home)();
  applyMedia();
- if(route==='fighters'){updateFighters();if(params.has('search'))document.querySelector('#fighter-search').focus();}
+ applyCopy();
+ if(route==='fighters'){updateFighters();applyCopy();if(params.has('search'))document.querySelector('#fighter-search').focus();}
  document.querySelectorAll('.bottom-nav a,.desktop-nav a').forEach(a=>{const active=a.hash===`#${route==='fighter'?'fighters':route}`;if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
  document.title=`${route==='fighter'?(fighterById(path.split('/')[1])?.name||'Боец'):links.find(([id])=>id===route)?.[1]||'Alash Pride'} — Alash Pride League`;
  window.scrollTo({top:0,behavior:'instant'});
@@ -91,8 +92,8 @@ document.addEventListener('click',event=>{
  if(target.closest('[data-reset-filters]')){filters={q:'',weight:'all',country:'all'};render();document.querySelector('#fighter-search').focus();}
  const filter=target.closest('[data-filter]');if(filter){document.querySelectorAll('[data-filter]').forEach(b=>{const active=b===filter;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});document.querySelectorAll('[data-status]').forEach(card=>{card.hidden=filter.dataset.filter!=='all'&&card.dataset.status!==filter.dataset.filter;});}
 });
-document.addEventListener('input',event=>{if(event.target.id==='fighter-search'){filters.q=event.target.value;updateFighters();}});
-document.addEventListener('change',event=>{if(event.target.id==='weight-filter')filters.weight=event.target.value;else if(event.target.id==='country-filter')filters.country=event.target.value;else return;updateFighters();});
+document.addEventListener('input',event=>{if(event.target.id==='fighter-search'){filters.q=event.target.value;updateFighters();applyCopy();}});
+document.addEventListener('change',event=>{if(event.target.id==='weight-filter')filters.weight=event.target.value;else if(event.target.id==='country-filter')filters.country=event.target.value;else return;updateFighters();applyCopy();});
 window.addEventListener('hashchange',render);
 window.addEventListener('alash:rankings',()=>{const y=window.scrollY;render();window.scrollTo({top:y,behavior:'instant'});});
 render();
@@ -107,4 +108,21 @@ function applyMedia(){
   if(data.media?.[key]&&key!=='logo')img.alt='Alash Pride';
  });
  if(data.media?.hero){document.querySelectorAll('.hero-photo-source,.video-grid figcaption').forEach(el=>el.hidden=true);}
+}
+
+function applyCopy(){
+ const route=(location.hash.slice(1)||'home').split(/[/?]/)[0];
+ const groupRoutes={'Главная':'home','Рейтинг':'rankings','Бойцы':'fighters','Чемпионы':'champions','Новости':'news','Турниры':'events','Билеты':'tickets','Результаты':'results','Видео':'video','О лиге':'about'};
+ for(const field of window.ALASH_COPY_FIELDS||[]){
+  if(field.group!=='Общее'&&groupRoutes[field.group]!==route)continue;
+  const value=data.copy?.[field.key];
+  if(typeof value!=='string'||!value.trim())continue;
+  document.querySelectorAll(field.selector).forEach(el=>{
+   if(field.mode==='placeholder'){el.placeholder=value;return;}
+   if(field.mode==='text'){el.textContent=value;return;}
+   const nodes=Array.from(el.childNodes).filter(node=>node.nodeType===Node.TEXT_NODE);
+   const node=field.mode==='last'?nodes.at(-1):nodes[0];
+   if(node)node.textContent=value;
+  });
+ }
 }

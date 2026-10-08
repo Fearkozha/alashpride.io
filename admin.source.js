@@ -5,7 +5,7 @@ import {validate, swap} from './rankings.js';
 const client = createClient(URL, KEY);
 const root = document.querySelector('#admin');
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let section = 'rankings', search = '';
+let section = 'rankings', search = '', copyPage = 'Главная', copySearch = '';
 let recordDrafts = {};
 let session, model, revision, division = '70', dirty = false, busy = false, authEpoch = 0;
 const message = text => {const el = document.querySelector('#message'); if(el) el.textContent = text;};
@@ -33,8 +33,9 @@ function editorView() {
     const used = current.champion === f.id || current.ranking.includes(f.id);
     return `<option value="${esc(f.id)}" ${f.id===value?'selected':''} ${used&&f.id!==value?'disabled':''}>${esc(f.name)}</option>`;
   }).join('');
-  root.innerHTML = `<div class="toolbar"><div><h1>Управление сайтом</h1><p>${esc(session.user.email)}</p></div><div class="actions"><a class="button" href="./#rankings" target="_blank" rel="noopener">Посмотреть сайт ↗</a><button id="logout">Выйти</button></div></div><p id="message" class="message" role="status"></p><section class="ranking-editor"><label>Весовая категория<select id="division">${model.divisions.map(d => `<option value="${esc(d.id)}" ${d.id===division?'selected':''}>${esc(d.name)} · ${esc(d.limit)}</option>`).join('')}</select></label><h2>${esc(current.name)} · ${esc(current.limit)}</h2><p class="help">Выбери чемпиона и до десяти претендентов. Стрелки меняют места; пустую позицию можно оставить для будущего бойца. Все категории публикуются одной кнопкой.</p><label>Чемпион<select data-position="-1">${options(current.champion,-1)}</select></label><h2>Претенденты</h2>${Array.from({length:10},(_,i)=>`<div class="ranking-row"><span class="rank-number">${i+1}</span><label><span class="sr-only">Место ${i+1}</span><select aria-label="Место ${i+1}" data-position="${i}">${options(current.ranking[i],i)}</select></label><div class="row-actions"><button type="button" data-move="${i}" data-direction="-1" aria-label="Поднять место ${i+1}" ${i===0?'disabled':''}>↑</button><button type="button" data-move="${i}" data-direction="1" aria-label="Опустить место ${i+1}" ${i===9?'disabled':''}>↓</button></div></div>`).join('')}<details><summary>Добавить бойца в эту категорию</summary><p class="help">Добавь бойца, затем выбери бойца в рейтинге. Он появится на сайте после публикации.</p><form id="add-fighter"><label>Имя бойца<input name="name" maxlength="100" required></label><label>Страна<select name="country"><option value="unknown">Не указана</option><option value="KZ">Казахстан</option><option value="KG">Кыргызстан</option><option value="UZ">Узбекистан</option><option value="RU">Россия</option><option value="BR">Бразилия</option><option value="AZ">Азербайджан</option><option value="GE">Грузия</option></select></label><div class="field-grid">${['Победы','Поражения','Ничьи'].map((s,i)=>`<label>${s}<input name="record${i}" type="number" min="0" max="999" placeholder="Неизвестно"></label>`).join('')}</div><button>Добавить бойца</button></form></details><label class="check"><input type="checkbox" id="verified" ${model.status==='verified'?'checked':''}>Я проверил имена, рекорды и рейтинг во всех категориях. Показывать базу как подтверждённую.</label><p class="help">Пока флажок снят, сайт сохраняет пометку «Макет». Рейтинг и имена подтверждает владелец. Неизвестные рекорды показаны прочерками.</p><div class="save-bar"><div class="actions"><button class="primary" id="publish">Опубликовать изменения</button><button id="reload">Загрузить заново</button><span id="save-state" class="dirty" role="status">${dirty?'Есть несохранённые изменения':'Все изменения сохранены'}</span></div></div></section>`;
+  root.innerHTML = `<div class="toolbar"><div class="actions"><a class="button" href="./#rankings" target="_blank" rel="noopener">Посмотреть сайт ↗</a><button id="logout">Выйти</button></div></div><p id="message" class="message" role="status"></p><section class="ranking-editor"><label>Весовая категория<select id="division">${model.divisions.map(d => `<option value="${esc(d.id)}" ${d.id===division?'selected':''}>${esc(d.name)} · ${esc(d.limit)}</option>`).join('')}</select></label><label>Название категории<input id="division-name" maxlength="100" value="${esc(current.name)}"></label><h2>${esc(current.name)} · ${esc(current.limit)}</h2><label>Чемпион<select data-position="-1">${options(current.champion,-1)}</select></label><h2>Претенденты</h2>${Array.from({length:10},(_,i)=>`<div class="ranking-row"><span class="rank-number">${i+1}</span><label><span class="sr-only">Место ${i+1}</span><select aria-label="Место ${i+1}" data-position="${i}">${options(current.ranking[i],i)}</select></label><div class="row-actions"><button type="button" data-move="${i}" data-direction="-1" aria-label="Поднять место ${i+1}" ${i===0?'disabled':''}>↑</button><button type="button" data-move="${i}" data-direction="1" aria-label="Опустить место ${i+1}" ${i===9?'disabled':''}>↓</button></div></div>`).join('')}<details><summary>Добавить бойца в эту категорию</summary><form id="add-fighter"><label>Имя бойца<input name="name" maxlength="100" required></label><label>Страна<select name="country"><option value="unknown">Не указана</option><option value="KZ">Казахстан</option><option value="KG">Кыргызстан</option><option value="UZ">Узбекистан</option><option value="RU">Россия</option><option value="BR">Бразилия</option><option value="AZ">Азербайджан</option><option value="GE">Грузия</option></select></label><div class="field-grid">${['Победы','Поражения','Ничьи'].map((s,i)=>`<label>${s}<input name="record${i}" type="number" min="0" max="999" placeholder="Неизвестно"></label>`).join('')}</div><button>Добавить бойца</button></form></details><label class="check"><input type="checkbox" id="verified" ${model.status==='verified'?'checked':''}>Я проверил имена, рекорды и рейтинг во всех категориях. Показывать базу как подтверждённую.</label><div class="save-bar"><div class="actions"><button class="primary" id="publish">Опубликовать изменения</button><button id="reload">Загрузить заново</button><span id="save-state" class="dirty" role="status">${dirty?'Есть несохранённые изменения':'Все изменения сохранены'}</span></div></div></section>`;
   enhanceEditor();
+  root.querySelector('#division-name').oninput = e => {current.name=e.target.value;changed();};
   root.querySelector('#division').onchange = event => {division = event.target.value; editorView();};
   root.querySelectorAll('[data-position]').forEach(select => select.onchange = () => {
     const i = Number(select.dataset.position);
@@ -57,12 +58,12 @@ function editorView() {
   root.querySelector('#reload').onclick = async () => {if (dirty&&!confirm('Отменить несохранённые изменения и загрузить последнюю версию?')) return; setBusy(true); try {await load(); editorView();} catch(error) {message(error.message);} finally {setBusy(false);}};
   root.querySelector('#logout').onclick = async () => {if (dirty&&!confirm('Выйти без сохранения изменений?')) return; setBusy(true); const {error} = await client.auth.signOut(); if(error) {message('Не удалось выйти. Попробуй снова.'); setBusy(false);} else {dirty=false; model=null;}};
 }
-function setBusy(value) {busy=value; root.querySelectorAll('button,input,select').forEach(el=>{if(value){el.dataset.disabledBefore=String(el.disabled);el.disabled=true;}else if('disabledBefore' in el.dataset){el.disabled=el.dataset.disabledBefore==='true';delete el.dataset.disabledBefore;}});}
+function setBusy(value) {busy=value; root.querySelectorAll('button,input,select,textarea').forEach(el=>{if(value){el.dataset.disabledBefore=String(el.disabled);el.disabled=true;}else if('disabledBefore' in el.dataset){el.disabled=el.dataset.disabledBefore==='true';delete el.dataset.disabledBefore;}});}
 async function publish() {
   if (busy) return;
   try {
     if(Object.values(recordDrafts).some(v=>v!==''&&(!/^\d+$/.test(v)||!Number.isSafeInteger(Number(v)))))throw Error('Проверь рекорд бойца: допустимы только целые числа от 0. Неизвестные результаты оставь пустыми.');
-    validate(model); setBusy(true); message('Сохранение…');
+    validateCopy();validate(model); setBusy(true); message('Сохранение…');
     const {data,error} = await client.from('site_content').update({payload:model}).eq('id',DOCUMENT_ID).eq('kind','ranking').eq('revision',revision).select('revision');
     if(error) throw Error('Не удалось сохранить. Изменения остались в редакторе — проверь соединение и повтори.');
     if(!data?.length) throw Error('Рейтинг уже изменён в другой вкладке или доступ отозван. Твои правки не отправлены. Сохрани их для себя, затем нажми «Загрузить заново».');
@@ -76,9 +77,9 @@ async function authenticate(next) {
   try {
     const {data,error}=await client.from('site_editors').select('email');
     if(epoch!==authEpoch)return;
-    if(error||!data?.length) throw Error('У этого аккаунта нет прав на редактирование рейтинга.');
+    if(error||!data?.length) throw Error('У этого аккаунта нет прав на редактирование сайта.');
     await load(); if(epoch===authEpoch)editorView();
-  } catch(error) {if(epoch!==authEpoch)return;root.innerHTML=`<h1>Управление рейтингом</h1><p>${esc(error.message)}</p><button id="retry">Повторить</button> <button id="signout">Выйти</button>`;root.querySelector('#retry').onclick=()=>authenticate(session);root.querySelector('#signout').onclick=()=>client.auth.signOut();}
+  } catch(error) {if(epoch!==authEpoch)return;root.innerHTML=`<h1>Админка</h1><p>${esc(error.message)}</p><button id="retry">Повторить</button> <button id="signout">Выйти</button>`;root.querySelector('#retry').onclick=()=>authenticate(session);root.querySelector('#signout').onclick=()=>client.auth.signOut();}
 }
 let currentUser;
 client.auth.onAuthStateChange((_event,next)=>{
@@ -94,25 +95,27 @@ function imageControl(kind,id,url,title){
  const fighter=kind==='fighter'?model.fighters.find(f=>f.id===id):null;
  const fields=fighter?`<fieldset class="record-fields"><legend>Рекорд бойца</legend><div>${['Победы','Поражения','Ничьи'].map((label,i)=>`<label>${label}<input type="text" inputmode="numeric" pattern="[0-9]*" data-record="${i}" data-fighter="${esc(id)}" value="${esc(recordDrafts[`${id}:${i}`] ?? fighter.record[i] ?? '')}" placeholder="—" aria-label="${label}: ${esc(title)}"></label>`).join('')}</div></fieldset>`:'';
 
- return `<article class="media-card"><img src="${esc(url)}" alt="${esc(title)}" class="media-preview ${kind==='fighter'?'fighter-preview':''}"><div><h3>${esc(title)}</h3>${fields}<label class="upload-label">Выбрать фото<input type="file" accept="image/jpeg,image/png,image/webp" data-upload="${kind}" data-id="${esc(id)}"></label><button type="button" data-reset-image="${kind}" data-id="${esc(id)}">${kind==='fighter'?'Убрать фото':'Вернуть исходное'}</button></div></article>`;
+ return `<article class="media-card"><img src="${esc(url)}" alt="${esc(title)}" class="media-preview ${kind==='fighter'?'fighter-preview':''}"><div><h3>${esc(title)}</h3>${fighter?`<label>Имя бойца<input data-fighter-name="${esc(id)}" value="${esc(fighter.name)}" maxlength="100"></label>`:``}${fields}<label class="upload-label">Выбрать фото<input type="file" accept="image/jpeg,image/png,image/webp" data-upload="${kind}" data-id="${esc(id)}"></label><button type="button" data-reset-image="${kind}" data-id="${esc(id)}">${kind==='fighter'?'Убрать фото':'Вернуть исходное'}</button></div></article>`;
 }
 function enhanceEditor(){
  const ranking=root.querySelector('.ranking-editor');
  const bar=ranking.querySelector('.save-bar');root.append(bar);
  const tabs=document.createElement('nav');tabs.className='admin-tabs';tabs.setAttribute('aria-label','Разделы админки');
- tabs.innerHTML=[['rankings','Рейтинг'],['fighters','Бойцы и рекорды'],['media','Изображения сайта']].map(([id,label])=>`<button type="button" data-section="${id}" aria-pressed="${section===id}">${label}</button>`).join('');
+ tabs.innerHTML=[['rankings','Рейтинг'],['fighters','Бойцы и рекорды'],['media','Изображения'],['copy','Тексты']].map(([id,label])=>`<button type="button" data-section="${id}" aria-pressed="${section===id}">${label}</button>`).join('');
  ranking.before(tabs);ranking.hidden=section!=='rankings';
  const panel=document.createElement('section');panel.className='media-editor';bar.before(panel);
  if(section==='fighters'){
-  panel.innerHTML=`<h2>Бойцы и рекорды</h2><p>Найди бойца, измени фото, победы, поражения или ничьи. Пустое поле означает неизвестный результат, 0 — ноль. Затем нажми «Опубликовать изменения».</p><label>Поиск по имени<input id="photo-search" type="search" placeholder="Имя бойца…" value="${esc(search)}"></label><p id="photo-count" role="status"></p><div class="media-grid" id="photo-list"></div>`;
+  panel.innerHTML=`<label>Поиск по имени<input id="photo-search" type="search" placeholder="Имя бойца…" value="${esc(search)}"></label><p id="photo-count" role="status"></p><div class="media-grid" id="photo-list"></div>`;
   const draw=()=>{const list=model.fighters.filter(f=>f.name.toLocaleLowerCase().includes(search.trim().toLocaleLowerCase()));panel.querySelector('#photo-count').textContent=`Найдено: ${list.length}`;panel.querySelector('#photo-list').innerHTML=list.map(f=>imageControl('fighter',f.id,f.photo||'fighter-placeholder.svg',f.name)).join('')||'<p>Никого не нашли. Попробуй другое имя.</p>';bindImages(panel);};
   panel.querySelector('#photo-search').oninput=e=>{search=e.target.value;draw();};draw();
  }else if(section==='media'){
-  panel.innerHTML='<h2>Изображения сайта</h2><p>JPG, PNG или WebP, до 15 МБ. Большие изображения автоматически уменьшаются. После выбора нажми «Опубликовать изменения».</p><div class="media-grid">'+mediaSlots.map(([id,title,fallback])=>imageControl('media',id,model.media?.[id]||fallback,title)).join('')+'</div>';bindImages(panel);
- }else panel.hidden=true;
+  panel.innerHTML='<div class="media-grid">'+mediaSlots.map(([id,title,fallback])=>imageControl('media',id,model.media?.[id]||fallback,title)).join('')+'</div>';bindImages(panel);
+ }else if(section==='copy')renderCopyEditor(panel);
+ else panel.hidden=true;
  tabs.querySelectorAll('button').forEach(b=>b.onclick=()=>{if(busy)return;section=b.dataset.section;editorView();});
 }
 function bindImages(panel){
+ panel.querySelectorAll('[data-fighter-name]').forEach(input=>input.oninput=()=>{model.fighters.find(f=>f.id===input.dataset.fighterName).name=input.value;changed();});
  panel.querySelectorAll('[data-record]').forEach(input=>input.oninput=()=>{
   const id=input.dataset.fighter,i=Number(input.dataset.record),value=input.value;
   recordDrafts[`${id}:${i}`]=value;
@@ -160,4 +163,42 @@ async function uploadImage(input){
   else {model.media ||= {};model.media[id]=data.publicUrl;}
   changed();editorView();message('Фото загружено. Проверь результат и нажми «Опубликовать изменения».');
  }catch(error){message(error.message);input.value='';}finally{setBusy(false);}
+}
+
+function validateCopy(){
+ if(model.divisions.some(d=>!d.name?.trim()))throw Error('Укажи название каждой весовой категории.');
+ const fields=new Set(window.ALASH_COPY_FIELDS.map(f=>f.key));
+ if(Object.entries(model.copy||{}).some(([key,value])=>!fields.has(key)||typeof value!=='string'||!value.trim()||value.length>1200))
+  throw Error('Проверь тексты: поле не должно быть пустым или длиннее 1200 символов.');
+}
+function renderCopyEditor(panel){
+ const fields=window.ALASH_COPY_FIELDS;
+ const groups=[...new Set(fields.map(f=>f.group))];
+ panel.innerHTML=`<div class="copy-tools"><label>Раздел<select id="copy-page">${groups.map(group=>`<option ${group===copyPage?'selected':''}>${esc(group)}</option>`).join('')}</select></label><label>Найти текст<input type="search" id="copy-search" value="${esc(copySearch)}" placeholder="Заголовок или слово…"></label></div><p id="copy-count" class="muted" role="status"></p><div id="copy-fields" class="copy-fields"></div>`;
+ const list=panel.querySelector('#copy-fields');
+ const draw=()=>{
+  const shown=fields.filter(f=>(copySearch?`${f.label} ${f.original} ${f.group}`.toLocaleLowerCase('ru').includes(copySearch.toLocaleLowerCase('ru')):f.group===copyPage));
+  panel.querySelector('#copy-count').textContent=`Полей: ${shown.length}`;
+  list.innerHTML=shown.map(f=>{
+   const value=model.copy?.[f.key]??f.original;
+   const multiline=f.original.length>100;
+   return `<div class="copy-field"><label for="${f.key}"><span>${esc(f.group)} · ${esc(f.label)}</span></label>${multiline?`<textarea id="${f.key}" data-copy-key="${f.key}" rows="4" maxlength="1200">${esc(value)}</textarea>`:`<input id="${f.key}" data-copy-key="${f.key}" type="text" maxlength="1200" value="${esc(value)}">`}<button type="button" data-copy-reset="${f.key}" ${model.copy?.[f.key]===undefined?'disabled':''}>Вернуть исходный</button></div>`;
+  }).join('')||'<p>Совпадений нет.</p>';
+  list.querySelectorAll('[data-copy-key]').forEach(input=>input.oninput=()=>{
+   const field=fields.find(f=>f.key===input.dataset.copyKey);
+   model.copy ||= {};
+   if(input.value===field.original)delete model.copy[field.key];
+   else model.copy[field.key]=input.value;
+   input.setCustomValidity(input.value.trim()?'':'Введите текст или верните исходный.');
+   input.closest('.copy-field').querySelector('[data-copy-reset]').disabled=model.copy[field.key]===undefined;
+   changed();
+  });
+  list.querySelectorAll('[data-copy-reset]').forEach(button=>button.onclick=()=>{
+   const field=fields.find(f=>f.key===button.dataset.copyReset);
+   delete model.copy[field.key];changed();draw();
+  });
+ };
+ panel.querySelector('#copy-page').onchange=e=>{copyPage=e.target.value;copySearch='';panel.querySelector('#copy-search').value='';draw();};
+ panel.querySelector('#copy-search').oninput=e=>{copySearch=e.target.value;draw();};
+ draw();
 }
