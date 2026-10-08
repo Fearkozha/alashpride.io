@@ -6,6 +6,7 @@ const client = createClient(URL, KEY);
 const root = document.querySelector('#admin');
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let section = 'rankings', search = '';
+let recordDrafts = {};
 let session, model, revision, division = '70', dirty = false, busy = false, authEpoch = 0;
 const message = text => {const el = document.querySelector('#message'); if(el) el.textContent = text;};
 function changed() {dirty = true; document.querySelector('#save-state').textContent = 'Есть несохранённые изменения';}
@@ -22,7 +23,7 @@ function loginView() {
 async function load() {
   const {data, error} = await client.from('site_content').select('payload,revision').eq('id',DOCUMENT_ID).eq('kind','ranking').single();
   if (error) throw Error('Не удалось загрузить рейтинг. Проверь соединение и попробуй снова.');
-  model = structuredClone(validate(data.payload)); revision = data.revision; dirty = false;
+  recordDrafts = {}; model = structuredClone(validate(data.payload)); revision = data.revision; dirty = false;
   if (!model.divisions.some(d => d.id === division)) division = model.divisions[0].id;
 }
 function editorView() {
@@ -60,6 +61,7 @@ function setBusy(value) {busy=value; root.querySelectorAll('button,input,select'
 async function publish() {
   if (busy) return;
   try {
+    if(Object.values(recordDrafts).some(v=>v!==''&&(!/^\d+$/.test(v)||!Number.isSafeInteger(Number(v)))))throw Error('Проверь рекорд бойца: допустимы только целые числа от 0. Неизвестные результаты оставь пустыми.');
     validate(model); setBusy(true); message('Сохранение…');
     const {data,error} = await client.from('site_content').update({payload:model}).eq('id',DOCUMENT_ID).eq('kind','ranking').eq('revision',revision).select('revision');
     if(error) throw Error('Не удалось сохранить. Изменения остались в редакторе — проверь соединение и повтори.');
@@ -89,17 +91,20 @@ window.addEventListener('beforeunload',event=>{if(dirty||busy){event.preventDefa
 
 const mediaSlots = [['hero','Главный баннер и обложка видео','hero.jpg'],['league','Фото лиги и обложка новостей','league.jpg'],['logo','Логотип сайта','logo.jpg']];
 function imageControl(kind,id,url,title){
- return `<article class="media-card"><img src="${esc(url)}" alt="${esc(title)}" class="media-preview ${kind==='fighter'?'fighter-preview':''}"><div><h3>${esc(title)}</h3><label class="upload-label">Выбрать фото<input type="file" accept="image/jpeg,image/png,image/webp" data-upload="${kind}" data-id="${esc(id)}"></label><button type="button" data-reset-image="${kind}" data-id="${esc(id)}">${kind==='fighter'?'Убрать фото':'Вернуть исходное'}</button></div></article>`;
+ const fighter=kind==='fighter'?model.fighters.find(f=>f.id===id):null;
+ const fields=fighter?`<fieldset class="record-fields"><legend>Рекорд бойца</legend><div>${['Победы','Поражения','Ничьи'].map((label,i)=>`<label>${label}<input type="text" inputmode="numeric" pattern="[0-9]*" data-record="${i}" data-fighter="${esc(id)}" value="${esc(recordDrafts[`${id}:${i}`] ?? fighter.record[i] ?? '')}" placeholder="—" aria-label="${label}: ${esc(title)}"></label>`).join('')}</div></fieldset>`:'';
+
+ return `<article class="media-card"><img src="${esc(url)}" alt="${esc(title)}" class="media-preview ${kind==='fighter'?'fighter-preview':''}"><div><h3>${esc(title)}</h3>${fields}<label class="upload-label">Выбрать фото<input type="file" accept="image/jpeg,image/png,image/webp" data-upload="${kind}" data-id="${esc(id)}"></label><button type="button" data-reset-image="${kind}" data-id="${esc(id)}">${kind==='fighter'?'Убрать фото':'Вернуть исходное'}</button></div></article>`;
 }
 function enhanceEditor(){
  const ranking=root.querySelector('.ranking-editor');
  const bar=ranking.querySelector('.save-bar');root.append(bar);
  const tabs=document.createElement('nav');tabs.className='admin-tabs';tabs.setAttribute('aria-label','Разделы админки');
- tabs.innerHTML=[['rankings','Рейтинг'],['fighters','Фото бойцов'],['media','Изображения сайта']].map(([id,label])=>`<button type="button" data-section="${id}" aria-pressed="${section===id}">${label}</button>`).join('');
+ tabs.innerHTML=[['rankings','Рейтинг'],['fighters','Бойцы и рекорды'],['media','Изображения сайта']].map(([id,label])=>`<button type="button" data-section="${id}" aria-pressed="${section===id}">${label}</button>`).join('');
  ranking.before(tabs);ranking.hidden=section!=='rankings';
  const panel=document.createElement('section');panel.className='media-editor';bar.before(panel);
  if(section==='fighters'){
-  panel.innerHTML=`<h2>Фото бойцов</h2><p>Найди бойца и выбери фотографию с телефона или компьютера. Фото появится в каталоге, у чемпионов и в рейтинге.</p><label>Поиск по имени<input id="photo-search" type="search" placeholder="Имя бойца…" value="${esc(search)}"></label><p id="photo-count" role="status"></p><div class="media-grid" id="photo-list"></div>`;
+  panel.innerHTML=`<h2>Бойцы и рекорды</h2><p>Найди бойца, измени фото, победы, поражения или ничьи. Пустое поле означает неизвестный результат, 0 — ноль. Затем нажми «Опубликовать изменения».</p><label>Поиск по имени<input id="photo-search" type="search" placeholder="Имя бойца…" value="${esc(search)}"></label><p id="photo-count" role="status"></p><div class="media-grid" id="photo-list"></div>`;
   const draw=()=>{const list=model.fighters.filter(f=>f.name.toLocaleLowerCase().includes(search.trim().toLocaleLowerCase()));panel.querySelector('#photo-count').textContent=`Найдено: ${list.length}`;panel.querySelector('#photo-list').innerHTML=list.map(f=>imageControl('fighter',f.id,f.photo||'fighter-placeholder.svg',f.name)).join('')||'<p>Никого не нашли. Попробуй другое имя.</p>';bindImages(panel);};
   panel.querySelector('#photo-search').oninput=e=>{search=e.target.value;draw();};draw();
  }else if(section==='media'){
@@ -108,6 +113,16 @@ function enhanceEditor(){
  tabs.querySelectorAll('button').forEach(b=>b.onclick=()=>{if(busy)return;section=b.dataset.section;editorView();});
 }
 function bindImages(panel){
+ panel.querySelectorAll('[data-record]').forEach(input=>input.oninput=()=>{
+  const id=input.dataset.fighter,i=Number(input.dataset.record),value=input.value;
+  recordDrafts[`${id}:${i}`]=value;
+  const valid=value===''||(/^\d+$/.test(value)&&Number.isSafeInteger(Number(value)));
+  input.setCustomValidity(valid?'':'Введи целое число от 0 или оставь поле пустым.');
+  input.setAttribute('aria-invalid',String(!valid));
+  if(valid)model.fighters.find(f=>f.id===id).record[i]=value===''?null:Number(value);
+  changed();
+ });
+
  panel.querySelectorAll('[data-upload]').forEach(input=>input.onchange=()=>uploadImage(input));
  panel.querySelectorAll('[data-reset-image]').forEach(button=>button.onclick=()=>{
   if(busy)return;
