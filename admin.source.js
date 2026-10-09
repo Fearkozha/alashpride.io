@@ -95,7 +95,7 @@ client.auth.onAuthStateChange((_event,next)=>{
 });
 window.addEventListener('beforeunload',event=>{if(dirty||busy){event.preventDefault();event.returnValue='';}});
 
-const mediaSlots = [['hero','Обложка видео','hero.jpg'],['league','Фото лиги','league.jpg'],['logo','Логотип сайта','logo.jpg']];
+const mediaSlots = [['league','Фото лиги','league.jpg'],['logo','Логотип сайта','logo.jpg']];
 function imageControl(kind,id,url,title){
  const fighter=kind==='fighter'?model.fighters.find(f=>f.id===id):null;
  const fields=fighter?`<div class="record-editor">${[['record','Общий рекорд'],['leagueRecord','Alash Pride']].map(([type,caption])=>`<fieldset class="record-fields"><legend>${type==='leagueRecord'?'<img src="logo.jpg" width="17" height="17" alt="">':''}${caption}</legend><div>${['Победы','Поражения','Ничьи'].map((label,i)=>`<label>${label}<input type="text" inputmode="numeric" pattern="[0-9]*" data-record="${i}" data-record-type="${type}" data-fighter="${esc(id)}" value="${esc(recordDrafts[`${id}:${type}:${i}`] ?? (fighter[type]||[null,null,null])[i] ?? '')}" placeholder="—" aria-label="${caption}, ${label}: ${esc(title)}"></label>`).join('')}</div></fieldset>`).join('')}</div>`:'';
@@ -173,7 +173,7 @@ function validateCopy(){
   throw Error('Проверь тексты: поле не должно быть пустым или длиннее 1200 символов.');
 }
 function renderCopyEditor(panel){
- const fields=window.ALASH_COPY_FIELDS.filter(f=>f.group!=='Новости'&&!f.selector.includes('#news'));
+ const fields=window.ALASH_COPY_FIELDS.filter(f=>!['Новости','Видео','Результаты'].includes(f.group)&&!/#(?:news|video|results)|\.home-videos|\.home-below \.section-title/.test(f.selector));
  const groups=[...new Set(fields.map(f=>f.group))];
  panel.innerHTML=`<div class="copy-tools"><label>Раздел<select id="copy-page">${groups.map(group=>`<option ${group===copyPage?'selected':''}>${esc(group)}</option>`).join('')}</select></label><label>Найти текст<input type="search" id="copy-search" value="${esc(copySearch)}" placeholder="Заголовок или слово…"></label></div><p id="copy-count" class="muted" role="status"></p><div id="copy-fields" class="copy-fields"></div>`;
  const list=panel.querySelector('#copy-fields');
