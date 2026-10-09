@@ -22,8 +22,10 @@ const fighterById = id => data.fighters.find(f=>f.id===id);
 const divisionById = id => data.divisions.find(d=>d.id===id);
 const isChampion = f => data.divisions.some(d=>d.champion===f.id);
 const portrait = f => `<img class="portrait ${f.photo?'':'placeholder'}" src="${esc(f.photo||'fighter-placeholder.svg')}" alt="${f.photo?esc(f.name):'Фото бойца пока не добавлено'}" loading="lazy">`;
-const recordNumbers = values => `<span class="record" aria-label="${values[0] ?? '—'} побед, ${values[1] ?? '—'} поражений, ${values[2] ?? '—'} ничьих"><b>${values[0] ?? '—'}</b><i> - </i><b>${values[1] ?? '—'}</b><i> - </i><b>${values[2] ?? '—'}</b></span>`;
-const record = f => `<div class="record-pair"><div class="record-line"><span class="record-label">ОБЩИЙ</span>${recordNumbers(f.record)}</div><div class="record-line league-record"><span class="record-label"><img src="logo.jpg" width="17" height="17" alt="">ALASH PRIDE</span>${recordNumbers(f.leagueRecord || [null,null,null])}</div></div>`;
+const recordNumbers = values => values.every(n=>n===null)
+ ? '<span class="record record-unknown" aria-label="Рекорд пока не указан">—</span>'
+ : `<span class="record" aria-label="${values[0] ?? '—'} побед, ${values[1] ?? '—'} поражений, ${values[2] ?? '—'} ничьих"><b>${values[0] ?? '—'}</b><i aria-hidden="true">–</i><b>${values[1] ?? '—'}</b><i aria-hidden="true">–</i><b>${values[2] ?? '—'}</b></span>`;
+const record = f => `<div class="record-pair"><div class="record-line" role="group" aria-label="Общий рекорд"><span class="record-label">Общий</span>${recordNumbers(f.record)}</div><div class="record-line league-record" role="group" aria-label="Рекорд в Alash Pride"><span class="record-label"><img src="logo.jpg" width="14" height="14" alt="">Alash Pride</span>${recordNumbers(f.leagueRecord || [null,null,null])}</div></div>`;
 // Preserve the owner's country assignments when a legacy admin payload has no countries.
 const countryCatalog = data.countries;
 const bundledCountries = new Map(data.fighters.map(f => [f.id, f.countries]));

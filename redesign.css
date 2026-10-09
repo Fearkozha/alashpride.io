@@ -31,7 +31,29 @@
 
 .rank-fighter{display:flex;align-items:center;gap:10px}.rank-fighter .portrait{width:34px;height:42px;object-fit:cover;flex-shrink:0}.fighter-card{cursor:default}
 
-/* Two independently editable records. The league mark follows the site's logo setting. */
-.record-pair{display:grid;gap:5px;min-width:0;margin-top:8px}.record-line{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0}.record-label{display:inline-flex;align-items:center;gap:5px;color:#b5b5b5;font:700 9px/1.2 var(--body);letter-spacing:.04em;white-space:nowrap}.record-label img{width:16px;height:16px;object-fit:contain;border-radius:50%;flex:none}.record-line .record{font-size:20px;margin:0}.league-record .record{font-size:19px}.champion-copy>.record-pair{margin-top:11px}.champion-card{min-height:290px;padding-bottom:28px}.fighter-card-copy>div{display:block}.fighter-card-copy>div>span:first-child{display:block}.fighter-card-copy .record-pair{margin-top:5px}.fighter-card-copy .record-line{gap:4px}.fighter-card-copy .record{font-size:17px}.champion-row{min-height:145px;height:auto}.champion-row .record-pair{margin-top:5px}.champion-row .record{font-size:18px}.rank-table th:last-child{width:100px}.rank-table td:last-child{white-space:normal;padding-block:8px}.rank-table .record-pair{gap:6px;margin:0}.rank-table .record-line{display:grid;justify-items:end;gap:0}.rank-table .record-label{font-size:8px}.rank-table .record-label img{width:12px;height:12px}.rank-table .record{font-size:15px}.rank-table .league-record .record{font-size:14px}
-@media(max-width:760px){.rank-table th:last-child{width:85px}.rank-table td:last-child{font-size:12px}.rank-table .record{font-size:13px}.rank-table .league-record .record{font-size:13px}.champion-row{min-height:150px}.champion-row .record-line{gap:4px}.champion-row .record{font-size:17px}}
-@media(max-width:480px){.fighter-card-copy .record-line{display:grid;gap:2px;justify-items:start}.champion-card .record-line{display:grid;gap:2px;justify-items:start}.champion-row .record-line{display:grid;gap:2px;justify-items:start}.champion-copy{width:56%}}
+/* Shared record panel: two equally sized cells, compact rows in the ranking table. */
+.record-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;max-width:300px;margin-top:12px;border:1px solid #343434;border-radius:6px;background:#ffffff03;overflow:hidden}
+.record-line{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;min-width:0;padding:10px 12px}
+.record-line+.record-line{border-left:1px solid #343434}
+.record-label{display:inline-flex;align-items:center;gap:5px;min-height:14px;color:#aaa;font:600 9px/1.2 var(--body);letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.record-label img{width:14px;height:14px;object-fit:contain;border-radius:50%;flex:none}
+.record-pair .record{font-size:23px;line-height:1.1;gap:3px;margin:0;font-variant-numeric:tabular-nums}
+.record-pair .record i{font-size:.65em;color:#686868}.record-pair .record-unknown{color:#777;font-weight:400}
+.champion-copy>.record-pair{margin-top:14px}.champion-card{min-height:290px;padding-bottom:28px}
+.fighter-card-copy>div{display:block}.fighter-card-copy>div>span:first-child{display:block}
+.fighter-card-copy .record-pair{margin-top:8px}.fighter-card-copy .record-line{padding:8px}.fighter-card-copy .record{font-size:19px}
+.champion-row{min-height:150px;height:auto}.champion-row .record-pair{margin:8px 0 12px}.champion-row .record-line{padding:8px 10px}.champion-row .record{font-size:20px}
+.rank-table th:last-child{width:106px}.rank-table td:last-child{white-space:normal;padding-block:10px}
+.rank-table .record-pair{grid-template-columns:1fr;gap:0;margin:0;border:0;border-radius:0;background:none}
+.rank-table .record-line{padding:0;gap:3px;align-items:flex-end}.rank-table .record-line+.record-line{border:0;border-top:1px solid #ffffff0d;margin-top:5px;padding-top:5px}
+.rank-table .record-label{font-size:7px;letter-spacing:.03em;min-height:11px;gap:4px}.rank-table .record-label img{width:11px;height:11px}
+.rank-table .record{font-size:15px;gap:2px}
+@media(max-width:760px){.rank-table th:last-child{width:84px}.rank-table .record{font-size:14px}.rank-table td:last-child{padding-block:8px}.champion-row{min-height:150px}.champion-row .record-line{padding:7px}.champion-row .record{font-size:18px}}
+@media(max-width:480px){
+ .champion-copy{width:56%}
+ .champion-copy .record-pair,.fighter-card-copy .record-pair,.champion-row .record-pair{grid-template-columns:1fr}
+ .champion-copy .record-line,.fighter-card-copy .record-line,.champion-row .record-line{flex-direction:row;align-items:center;justify-content:space-between;gap:5px;padding:8px}
+ .champion-copy .record-line+.record-line,.fighter-card-copy .record-line+.record-line,.champion-row .record-line+.record-line{border-left:0;border-top:1px solid #343434}
+ .record-label{font-size:7px;letter-spacing:.015em;gap:3px}.record-label img{width:12px;height:12px}
+ .champion-copy .record{font-size:19px}.fighter-card-copy .record,.champion-row .record{font-size:17px;gap:2px}
+}
