@@ -175,7 +175,8 @@
  .champion-row h2{font-size:20px}
  .champion-copy .record{font-size:16px}
  .champion-copy h3{font-size:22px}
- .rank-fighter .portrait{display:none}
+ .rank-fighter{gap:6px}
+ .rank-fighter .portrait{display:block;width:28px;height:38px}
  .fighter-card-copy h2{font-size:17px}
  .identity{font-size:20px}
 }
