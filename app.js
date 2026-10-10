@@ -30,9 +30,9 @@ const countryCatalog = data.countries;
 const bundledCountries = new Map(data.fighters.map(f => [f.id, f.countries]));
 const countryAliases = {KZ:'KAZ',RU:'RUS',UZ:'UZB',KG:'KGZ',AZ:'AZE',BR:'BRA',GE:'GEO'};
 const countryCodes = f => {
- const codes = Array.isArray(f.countries) && f.countries.length ? f.countries : String(f.code || '').split('/').map(c => c.trim());
+ const codes = Array.isArray(f.countries) ? f.countries : String(f.code || '').split('/').map(c => c.trim());
  const normalized = codes.map(c => countryAliases[c] || c).filter(c => countryCatalog[c]);
- return normalized.length ? normalized : bundledCountries.get(f.id) || ['—'];
+ return normalized.length ? normalized : Array.isArray(f.countries) ? ['—'] : bundledCountries.get(f.id) || ['—'];
 };
 const flag = f => `<span class="country-flags">${countryCodes(f).map(code => {
  const country = countryCatalog[code];
