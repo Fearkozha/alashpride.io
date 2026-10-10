@@ -189,7 +189,7 @@ function validateCopy(){
   throw Error('Проверь тексты: поле не должно быть пустым или длиннее 1200 символов.');
 }
 function renderCopyEditor(panel){
- const fields=window.ALASH_COPY_FIELDS.filter(f=>!['Новости','Видео','Результаты'].includes(f.group)&&!/#(?:news|video|results)|\.home-videos|\.home-below \.section-title/.test(f.selector));
+ const fields=window.ALASH_COPY_FIELDS.filter(f=>!f.selector.includes('admin.html')&&!['Новости','Видео','Результаты'].includes(f.group)&&!/#(?:news|video|results)|\.home-videos|\.home-below \.section-title/.test(f.selector));
  const groups=[...new Set(fields.map(f=>f.group))];
  panel.innerHTML=`<div class="copy-tools"><label>Раздел<select id="copy-page">${groups.map(group=>`<option ${group===copyPage?'selected':''}>${esc(group)}</option>`).join('')}</select></label><label>Найти текст<input type="search" id="copy-search" value="${esc(copySearch)}" placeholder="Заголовок или слово…"></label></div><p id="copy-count" class="muted" role="status"></p><div id="copy-fields" class="copy-fields"></div>`;
  const list=panel.querySelector('#copy-fields');

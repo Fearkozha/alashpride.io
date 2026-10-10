@@ -1,7 +1,6 @@
 'use strict';
 const data = window.ALASH_DATA;
 const main = document.querySelector('#main');
-const menu = document.querySelector('#site-menu');
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const paths = {
  home:'M3 10 12 3l9 7M5 9v12h5v-7h4v7h5V9',
@@ -68,29 +67,17 @@ function render(){
  if(['news','video','results'].includes(route)){location.replace('#home');return;}
  if(route==='fighter'){location.replace('#fighters');return;}
  if(path==='main'){main.focus();return;}
- if(menu.open)menu.close();
  const renders={home,rankings:()=>rankings(params),fighters,champions,events:()=>template('events'),tickets:()=>template('tickets'),about:()=>template('about')};
  main.innerHTML=(renders[route]||home)();
  applyMedia();
  applyCopy();
  if(route==='fighters'){updateFighters();applyCopy();if(params.has('search'))document.querySelector('#fighter-search').focus();}
- document.querySelectorAll('.bottom-nav a,.desktop-nav a').forEach(a=>{const active=a.hash===`#${route==='fighter'?'fighters':route}`;if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
  document.title=`${route==='fighter'?(fighterById(path.split('/')[1])?.name||'Боец'):links.find(([id])=>id===route)?.[1]||'Alash Pride'} — Alash Pride League`;
  window.scrollTo({top:0,behavior:'instant'});
  if(!(route==='fighters'&&params.has('search')))main.focus({preventScroll:true});
 }
-document.querySelector('.search-shortcut').innerHTML=icon('search');
-document.querySelector('.menu-button').innerHTML=icon('menu');
-document.querySelector('.menu-links').innerHTML=links.map(([id,label])=>`<a href="#${id}">${icon(id)}<span>${label}</span><span>›</span></a>`).join('');
-document.querySelector('.bottom-nav').innerHTML=[['home','Главная'],['rankings','Рейтинг'],['fighters','Бойцы'],['events','Турниры']].map(([id,label])=>`<a href="#${id}">${icon(id)}<span>${label}</span></a>`).join('')+`<button class="more-menu" aria-label="Все разделы" aria-haspopup="dialog" aria-controls="site-menu">${icon('more')}<span>Ещё</span></button>`;
-let menuOpener;
-function openMenu(button){menuOpener=button;menu.showModal();document.body.classList.add('menu-open');}
-menu.addEventListener('close',()=>{document.body.classList.remove('menu-open');menuOpener?.focus({preventScroll:true});});
 document.addEventListener('click',event=>{
  const target=event.target;
- const opener=target.closest('.menu-button,.more-menu');if(opener)openMenu(opener);
- if(target.closest('.close-menu')||target===menu)menu.close();
- if(target.closest('#site-menu a'))menu.close();
  if(target.closest('[data-reset-filters]')){filters={q:'',weight:'all',country:'all'};render();document.querySelector('#fighter-search').focus();}
  const filter=target.closest('[data-filter]');if(filter){document.querySelectorAll('[data-filter]').forEach(b=>{const active=b===filter;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});document.querySelectorAll('[data-status]').forEach(card=>{card.hidden=filter.dataset.filter!=='all'&&card.dataset.status!==filter.dataset.filter;});}
 });
@@ -102,6 +89,7 @@ render();
 
 function applyMedia(){
  document.querySelectorAll('img').forEach(img=>{
+  if(img.closest('#navigation-root,#react-header'))return;
   const original=img.dataset.originalSrc||img.getAttribute('src');
   if(!['hero.jpg','league.jpg','logo.jpg'].includes(original))return;
   img.dataset.originalSrc=original;
@@ -120,6 +108,7 @@ function applyCopy(){
   const value=data.copy?.[field.key];
   if(typeof value!=='string'||!value.trim())continue;
   document.querySelectorAll(field.selector).forEach(el=>{
+   if(el.closest('#navigation-root,#react-header'))return;
    if(field.mode==='placeholder'){el.placeholder=value;return;}
    if(field.mode==='text'){el.textContent=value;return;}
    const nodes=Array.from(el.childNodes).filter(node=>node.nodeType===Node.TEXT_NODE);
