@@ -37,6 +37,11 @@ function editorView() {
     return `<option value="${esc(f.id)}" ${f.id===value?'selected':''} ${used&&f.id!==value?'disabled':''}>${esc(f.name)}</option>`;
   }).join('');
   root.innerHTML = `<div class="toolbar"><div class="actions"><a class="button" href="./#rankings" target="_blank" rel="noopener">Посмотреть сайт ↗</a><button id="logout">Выйти</button></div></div><p id="message" class="message" role="status"></p><section class="ranking-editor"><label>Весовая категория<select id="division">${model.divisions.map(d => `<option value="${esc(d.id)}" ${d.id===division?'selected':''}>${esc(d.name)} · ${esc(d.limit)}</option>`).join('')}</select></label><label>Название категории<input id="division-name" maxlength="100" value="${esc(current.name)}"></label><h2>${esc(current.name)} · ${esc(current.limit)}</h2><div class="champion-editor"><label>Чемпион<select data-position="-1">${options(current.champion,-1)}</select></label>${current.champion?`<button type="button" data-edit-fighter="${esc(current.champion)}">Настроить бойца</button>`:``}</div><h2>Претенденты</h2>${Array.from({length:10},(_,i)=>`<div class="ranking-row"><span class="rank-number">${i+1}</span><label><span class="sr-only">Место ${i+1}</span><select aria-label="Место ${i+1}" data-position="${i}">${options(current.ranking[i],i)}</select></label><div class="row-actions">${current.ranking[i]?`<button type="button" data-edit-fighter="${esc(current.ranking[i])}" aria-label="Настроить бойца: ${esc(model.fighters.find(f=>f.id===current.ranking[i])?.name||'боец')}">Настроить бойца</button>`:``}<button type="button" data-move="${i}" data-direction="-1" aria-label="Поднять место ${i+1}" ${i===0?'disabled':''}>↑</button><button type="button" data-move="${i}" data-direction="1" aria-label="Опустить место ${i+1}" ${i===9?'disabled':''}>↓</button></div></div>`).join('')}<section id="fighter-editor" class="inline-fighter-editor"><label>Редактировать бойца<select id="fighter-to-edit">${candidates.map(f=>`<option value="${esc(f.id)}" ${f.id===editFighterId?'selected':''}>${esc(f.name)}</option>`).join('')}</select></label>${editing?imageControl('fighter',editing.id,editing.photo||'fighter-placeholder.svg',editing.name):'<p>Сначала добавь бойца в категорию.</p>'}</section><details><summary>Добавить бойца в эту категорию</summary><form id="add-fighter"><label>Имя бойца<input name="name" maxlength="100" required></label><label>Страна<select name="country"><option value="unknown">Не указана</option><option value="KZ">Казахстан</option><option value="KG">Кыргызстан</option><option value="UZ">Узбекистан</option><option value="RU">Россия</option><option value="BR">Бразилия</option><option value="AZ">Азербайджан</option><option value="GE">Грузия</option></select></label><div class="field-grid">${['Победы','Поражения','Ничьи'].map((s,i)=>`<label>${s}<input name="record${i}" type="number" min="0" max="999" placeholder="Неизвестно"></label>`).join('')}</div><button>Добавить бойца</button></form></details><label class="check"><input type="checkbox" id="verified" ${model.status==='verified'?'checked':''}>Я проверил имена, рекорды и рейтинг во всех категориях. Показывать базу как подтверждённую.</label><div class="save-bar"><div class="actions"><button class="primary" id="publish">Опубликовать изменения</button><button id="reload">Загрузить заново</button><span id="save-state" class="dirty" role="status">${dirty?'Есть несохранённые изменения':'Все изменения сохранены'}</span></div></div></section>`;
+  const addForm = root.querySelector('#add-fighter');
+  const freePosition = Array.from({length:10},(_,i)=>i).find(i=>!current.ranking[i]);
+  addForm.insertAdjacentHTML('afterbegin', `<p class="help">Боец появится на сайте после нажатия «Опубликовать изменения».</p><label>Место в этой категории<select name="position"><option value="unranked" ${freePosition===undefined?'selected':''}>Вне рейтинга — только в списке бойцов</option><option value="champion">Чемпион${current.champion?' — заменить текущего':''}</option>${Array.from({length:10},(_,i)=>`<option value="${i}" ${i===freePosition?'selected':''}>${i+1} место${current.ranking[i]?` — заменить ${esc(model.fighters.find(f=>f.id===current.ranking[i])?.name||'бойца')}`:' — свободно'}</option>`).join('')}</select></label>`);
+  addForm.insertAdjacentHTML('beforeend','<p id="add-fighter-message" class="message" role="alert"></p>');
+  addForm.querySelector('button').textContent='Добавить в редактор';
   enhanceEditor();
   root.querySelector('#fighter-to-edit').onchange=e=>{editFighterId=e.target.value;editorView();root.querySelector('#fighter-editor')?.scrollIntoView({block:'start'});};
   root.querySelectorAll('[data-edit-fighter]').forEach(button=>button.onclick=()=>{editFighterId=button.dataset.editFighter;editorView();root.querySelector('#fighter-editor')?.scrollIntoView({block:'start'});root.querySelector('#fighter-to-edit')?.focus({preventScroll:true});});
@@ -55,10 +60,31 @@ function editorView() {
   });
   root.querySelector('#verified').onchange = event => {model.status = event.target.checked?'verified':'preview'; changed();};
   root.querySelector('#add-fighter').onsubmit = event => {
-    event.preventDefault(); const fields = new FormData(event.target);
-    const countries = {unknown:'Страна не указана',KZ:'Казахстан',KG:'Кыргызстан',UZ:'Узбекистан',RU:'Россия',BR:'Бразилия',AZ:'Азербайджан',GE:'Грузия'};
-    const fighter = {id: `fighter-${crypto.randomUUID()}`,name:String(fields.get('name')).trim(),division,country:countries[fields.get('country')],code:fields.get('country')==='unknown'?'—':fields.get('country'),record:[0,1,2].map(i=>fields.get(`record${i}`)===''?null:Number(fields.get(`record${i}`))),leagueRecord:[null,null,null],photo:null,fights:[],finishes:null};
-    try {validate({...model,fighters:[...model.fighters,fighter]}); model.fighters.push(fighter); editFighterId=fighter.id; changed(); editorView(); message('Боец добавлен. Выбери его место и опубликуй изменения.');} catch(error) {message(error.message);}
+    event.preventDefault(); if(busy)return;
+    const form=event.currentTarget;
+    try {
+      const fields = new FormData(form), name=String(fields.get('name')||'').trim();
+      if(!name)throw Error('Укажи имя бойца.');
+      const position=fields.get('position');
+      if(!['unranked','champion',...Array.from({length:10},(_,i)=>String(i))].includes(position))throw Error('Выбери место бойца в категории.');
+      const fighter = {id:`fighter-${crypto.randomUUID()}`,name,division,record:[0,1,2].map(i=>fields.get(`record${i}`)===''?null:Number(fields.get(`record${i}`))),leagueRecord:[null,null,null],photo:null,fights:[],finishes:null};
+      setFighterCountries(fighter,selectedCountries({code:fields.get('country')==='unknown'?'—':fields.get('country')}));
+      const nextDivision={...current,ranking:Array.from({length:10},(_,i)=>current.ranking[i]||null)};
+      const replaced=position==='champion'?current.champion:position==='unranked'?null:current.ranking[Number(position)];
+      if(position==='champion')nextDivision.champion=fighter.id;
+      else if(position!=='unranked')nextDivision.ranking[Number(position)]=fighter.id;
+      const nextModel={...model,fighters:[...model.fighters,fighter],divisions:model.divisions.map(d=>d.id===division?nextDivision:d)};
+      validate(nextModel);
+      if(replaced&&!confirm(`Заменить ${model.fighters.find(f=>f.id===replaced)?.name||'бойца'} на выбранном месте? Прежний боец останется в списке бойцов.`))return;
+      model=nextModel;editFighterId=fighter.id;changed();editorView();
+      const result=`${name} добавлен${position==='unranked'?' вне рейтинга':position==='champion'?' как чемпион':` на ${Number(position)+1} место`}. Нажми «Опубликовать изменения», чтобы сохранить на сайте.`;
+      message(result);
+      const editor=root.querySelector('#fighter-editor');
+      const feedback=document.createElement('p');feedback.className='message';feedback.setAttribute('role','status');feedback.textContent=result;editor.prepend(feedback);
+      editor.scrollIntoView({block:'start'});root.querySelector('#fighter-to-edit').focus({preventScroll:true});
+    } catch(error) {
+      const feedback=form.querySelector('#add-fighter-message');feedback.textContent=error.message||'Не удалось добавить бойца. Проверь поля и попробуй снова.';feedback.scrollIntoView({block:'nearest'});
+    }
   };
   root.querySelector('#publish').onclick = publish;
   root.querySelector('#reload').onclick = async () => {if (dirty&&!confirm('Отменить несохранённые изменения и загрузить последнюю версию?')) return; setBusy(true); try {await load(); editorView();} catch(error) {message(error.message);} finally {setBusy(false);}};
