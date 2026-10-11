@@ -1,0 +1,211 @@
+/* Public presentation. Owner copy, imagery and ranking data stay authoritative. */
+:root{--panel:#161616;--border:#303030}
+.page{padding-block:44px 64px}
+.page-heading{background:none;margin-bottom:26px;padding-bottom:24px}
+.page-heading .eyebrow{display:flex;align-items:center;gap:10px;color:#aaa;font-size:10px;letter-spacing:.18em}
+.page-heading .eyebrow:before{content:'';width:24px;height:2px;background:var(--red)}
+.page-heading h1{font-size:clamp(36px,5vw,60px);line-height:1.1;margin:12px 0}
+.page-heading>p:last-child{font-size:14px;line-height:1.65;max-width:52ch;color:#aaa}
+.site-header{background:#101010;border-bottom-color:#2a2a2a;backdrop-filter:none}
+.desktop-nav a{letter-spacing:.035em}
+.icon-button{border-radius:6px}
+.primary-button,.button.red{border-radius:6px;min-height:48px;font-weight:500}
+.home-hero{border-bottom:1px solid #292929;background:#080808}
+.home-hero-content{padding-block:60px 48px;max-width:800px}
+.home-hero-logo{width:172px;height:172px;margin-bottom:24px}
+.home-hero-content h1{font-size:clamp(46px,7vw,76px);font-weight:600;letter-spacing:-.015em}
+.home-hero-content h1 span{font-size:13px;letter-spacing:.22em;margin-top:18px}
+.home-hero-content>.eyebrow{font-size:12px;color:#929292;letter-spacing:.17em}
+.home-hero-content .primary-button{width:280px;min-height:50px;margin-top:30px;justify-content:space-between;padding-inline:22px;font-size:17px}
+.home-below{padding-top:28px;padding-bottom:56px}
+.next-tournament{max-width:none;margin-top:0;padding:24px;gap:22px;background:#161616;border-color:#333;border-left:3px solid var(--red)}
+.next-tournament img{width:72px;height:72px}
+.next-tournament h2{font-size:30px;line-height:1.2;margin:6px 0 8px}
+.next-tournament p{font-size:13px}
+.next-tournament .eyebrow{font-size:10px;letter-spacing:.1em}
+.quick-links{max-width:none;gap:16px;margin:20px 0 40px}
+.quick-links a{flex-direction:row;justify-content:center;gap:14px;padding:18px 12px;border:1px solid #2c2c2c;border-radius:8px;background:#141414;font-size:20px}
+.quick-links a>span{width:40px;height:40px;border:0;border-radius:0;background:none}
+.quick-links svg{width:27px;height:27px}
+.home-rating-link{margin-top:0;padding:28px;border:1px solid #303030;border-radius:8px;background:#141414}
+.home-rating-link h2{font-size:38px;margin:8px 0}
+.home-rating-link p{font-size:14px;line-height:1.6}
+.home-rating-link>a{border:1px solid #633137;border-radius:5px;padding:13px 17px;color:#fff;font-size:14px}
+
+/* A portrait is a primary part of every contender row, not a tiny table icon. */
+.weight-tabs{border:0;gap:8px;margin:24px 0 32px;padding-bottom:4px;border-radius:0}
+.weight-tabs a{flex:1 0 auto;min-height:46px;border:1px solid #353535;border-radius:5px;padding:11px 16px;background:#171717;font-size:15px}
+.weight-tabs a:last-child{border:1px solid #353535}
+.weight-tabs a[aria-current]{border-color:var(--red);background:var(--red)}
+.division-block h2{font-size:24px;line-height:1.35;margin-bottom:16px}
+.rankings-grid{gap:36px}
+.rankings-grid>.division-block:only-child{max-width:860px}
+.rank-table{border-collapse:separate;border-spacing:0 8px;margin-top:20px;table-layout:fixed}
+.rank-table th{padding:0 12px 6px;border:0;font-size:10px;letter-spacing:.08em;color:#999}
+.rank-table th:first-child{width:40px}
+.rank-table th:last-child{width:136px;text-align:right}
+.rank-table td{height:140px;padding:10px 12px;border-top:1px solid #2b2b2b;border-bottom:1px solid #2b2b2b;background:#161616;vertical-align:middle}
+.rank-table tr:nth-child(even){background:none}
+.rank-table td:first-child{border-left:1px solid #2b2b2b;border-radius:7px 0 0 7px;color:#a4a4a4;font-size:22px;text-align:center;padding-inline:5px}
+.rank-table td:last-child{border-right:1px solid #2b2b2b;border-radius:0 7px 7px 0;padding:10px 12px;white-space:normal}
+.rank-table tbody tr:first-child td:first-child{border-left:3px solid var(--red);color:#ff5b63}
+.rank-fighter{display:flex;align-items:center;gap:16px;min-width:0}
+.rank-fighter .portrait{display:block;width:92px;height:118px;flex:none;object-fit:contain;object-position:center bottom;background:#202020;border-radius:5px}
+.rank-fighter-info{display:flex;flex-direction:column;gap:10px;min-width:0}
+.rank-fighter-name{font:500 23px/1.25 var(--display);overflow-wrap:anywhere}
+.rank-table .country-flags{justify-content:flex-start;gap:6px}
+.rank-table .country-code{font-size:10px;line-height:1.5}
+.rank-table .country-flag{width:20px;height:15px}
+.rank-table .record-line{min-height:50px;padding:5px 0;gap:5px;justify-items:end}
+.rank-table .record-label{font-size:9px;line-height:1.25;letter-spacing:0}
+.rank-table .record{font-size:21px;width:4.8em;line-height:1.2}
+.rank-table .record-line+.record-line{border-color:#343434}
+.rank-table .unfilled td{height:76px;color:#808080;font-size:14px}
+
+.champion-card:not(.vacant){grid-template-columns:minmax(0,.85fr) minmax(0,1fr);min-height:300px;padding:24px;gap:24px;border-color:#633137;background:#171515}
+.champion-card:not(.vacant)>.portrait{height:272px}
+.champion-copy h3{font-size:32px;line-height:1.2;margin:14px 0 12px}
+.champion-copy>p{margin-bottom:16px}
+.champion-marker{font-size:12px;letter-spacing:.1em}
+.champion-copy .record-line{grid-template-columns:1fr;justify-items:center;min-height:54px;gap:4px;padding:7px}
+.champion-copy .record{font-size:22px}
+.champion-row{grid-template-columns:138px minmax(0,1fr);gap:10px 22px;padding:20px;min-height:244px}
+.champion-row>.portrait{width:138px;height:184px}
+.champion-row .division-weight{font-size:23px;text-align:left;letter-spacing:.02em}
+.champion-row h2{font-size:27px}
+.champion-row p{margin-bottom:14px}
+.champion-row .record-line{min-height:46px}
+.champion-row.vacant-row{min-height:190px}
+.fighter-grid{gap:20px}
+.fighter-photo{aspect-ratio:1 / 1.08;max-height:290px;background:linear-gradient(150deg,#262626,#141414)}
+.fighter-card-copy{padding:16px}
+.fighter-card-copy h2{font-size:23px;min-height:2.5em}
+.fighter-card-country{min-height:22px;margin-bottom:12px}
+.fighter-card-copy .record-line{min-height:56px}
+.fighter-card-copy .record{font-size:21px}
+.fighter-card .small-crown{background:#171717;border:1px solid #533035;border-radius:5px;padding:5px;right:12px;top:12px}
+.fighter-controls{gap:12px}
+.search-field,.filter-selects select{background:#161616;border-color:#383838;border-radius:6px}
+.result-count{margin:20px 0 14px;font-size:12px}
+.events-section .section-heading{padding-bottom:22px;border-bottom:1px solid #303030;margin-bottom:24px}
+.events-section .event-card{padding:24px;border-radius:8px}
+.events-section .card-title{margin-block:20px 10px}
+.events-section .card-title h3{font-size:28px}
+.events-section .card-title h3 span{font-size:18px}
+.events-section .card-date{font-size:21px}
+.events-section .card-top{font-size:11px}
+.about-section{gap:28px;padding-block:48px}
+.about-section p,.faq-list p{font-size:15px;line-height:1.85}
+.about-section h2{font-size:32px}
+.faq-list summary{font-size:15px;line-height:1.5;min-height:60px}
+.site-footer{font-size:11px;letter-spacing:.06em;gap:24px;color:#aaa;padding-block:24px}
+.bottom-nav{background:#101010;backdrop-filter:none}
+#site-menu .menu-links a[aria-current]{background:#e71c2512;color:#ff6068}
+
+@media(min-width:761px){
+ .fighter-card-copy .record-pair{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .fighter-card-copy .record-line+.record-line{border-top:0;border-left:1px solid #343434}
+ .fighter-card-copy .record-line{min-height:72px}
+ .fighter-card-copy .record{font-size:clamp(17px,1.5vw,21px);width:4.4em}
+}
+@media(max-width:760px){
+ .page{padding-block:28px 44px}
+ .page-heading{padding-bottom:20px;margin-bottom:20px}
+ .page-heading .eyebrow{display:flex;font-size:9px}
+ .page-heading h1{font-size:38px;margin:10px 0}
+ .page-heading>p:last-child{font-size:12px}
+ .home-hero-content{padding-block:36px 34px}
+ .home-hero-logo{width:148px;height:148px;margin-bottom:22px}
+ .home-hero-content h1{font-size:46px}
+ .home-hero-content h1 span{font-size:11px;margin-top:15px;letter-spacing:.15em}
+ .home-hero-content>.eyebrow{font-size:10px}
+ .home-hero-content .primary-button{width:min(280px,100%);margin-top:26px;font-size:16px}
+ .home-below{padding-top:18px;padding-bottom:32px}
+ .next-tournament{padding:18px 14px;gap:14px}
+ .next-tournament img{width:54px;height:54px}
+ .next-tournament h2{font-size:22px}
+ .next-tournament p{font-size:11px}
+ .quick-links{gap:9px;margin:12px 0 24px}
+ .quick-links a{flex-direction:column;gap:6px;padding:14px 6px;font-size:15px}
+ .quick-links a>span{width:32px;height:32px}
+ .quick-links svg{width:25px;height:25px}
+ .home-rating-link{padding:22px 18px;gap:18px}
+ .home-rating-link h2{font-size:30px}
+ .home-rating-link p{font-size:13px}
+ .home-rating-link>a{width:100%;text-align:center;font-size:13px}
+ .weight-tabs{margin:20px 0 24px;gap:6px}
+ .weight-tabs a{padding:10px 14px;font-size:14px}
+ .division-block h2{font-size:23px}
+ .rank-table{margin-top:18px;border-spacing:0 8px}
+ .rank-table th{font-size:9px;padding:0 6px 4px}
+ .rank-table th:first-child{width:26px}
+ .rank-table th:last-child{width:94px}
+ .rank-table td{height:126px;padding:8px 6px}
+ .rank-table td:first-child{font-size:18px;padding-inline:3px}
+ .rank-table td:last-child{padding:8px 7px}
+ .rank-fighter{gap:10px}
+ .rank-fighter .portrait{display:block;width:76px;height:108px}
+ .rank-fighter-info{gap:8px}
+ .rank-fighter-name{font-size:18px;line-height:1.25}
+ .rank-table .country-flags{gap:5px}
+ .rank-table .country-flags .country-code{font-size:9px;gap:4px}
+ .rank-table .country-flags .country-flag{width:18px;height:13.5px}
+ .rank-table .record-line{min-height:48px;padding:5px 0;gap:5px}
+ .rank-table .record-label{font-size:8px;gap:3px}
+ .rank-table .record-label img{width:11px;height:11px}
+ .rank-table .record{font-size:17px;width:4.6em}
+ .rank-table .unfilled td{height:68px;font-size:12px}
+ .champion-card:not(.vacant){grid-template-columns:minmax(0,.8fr) minmax(0,1fr);padding:16px 12px;gap:12px;min-height:270px}
+ .champion-card:not(.vacant)>.portrait{height:238px}
+ .champion-copy h3{font-size:25px;margin:12px 0}
+ .champion-marker{font-size:10px;gap:4px;letter-spacing:.05em}
+ .champion-marker svg{width:14px;height:14px}
+ .champion-copy .record-line{grid-template-columns:1fr;justify-items:center;min-height:54px;padding:7px;gap:4px}
+ .champion-copy .record{font-size:21px}
+ .champion-copy .record-label{font-size:9px}
+ .champion-row{grid-template-columns:100px minmax(0,1fr);gap:8px 16px;padding:16px 12px;min-height:236px}
+ .champion-row>.portrait{width:100px;height:174px}
+ .champion-row .division-weight{font-size:22px}
+ .champion-row h2{font-size:23px;min-height:2.4em}
+ .champion-row .record-line{min-height:44px;gap:5px;padding:8px}
+ .champion-row .record{font-size:19px;width:4.8em}
+ .champion-row .record-label{font-size:8px}
+ .champion-row.vacant-row{min-height:140px}
+ .fighter-grid{gap:12px}
+ .fighter-photo{max-height:210px}
+ .fighter-card-copy{padding:11px 9px}
+ .fighter-card-copy h2{font-size:19px}
+ .fighter-card-copy .record-line{min-height:54px;padding:7px}
+ .fighter-card-copy .record{font-size:20px}
+ .fighter-card-copy .record-label{font-size:8px}
+ .fighter-card-country{min-height:32px;margin:9px 0}
+ .events-section .event-card{padding:18px}
+ .events-section .card-title{margin-block:8px}
+ .events-section .card-title h3{font-size:26px}
+ .events-section .card-date{font-size:19px}
+ .events-section .section-heading{gap:16px}
+ .events-section .event-filters{gap:20px}
+ .about-section{grid-template-columns:68px minmax(0,1fr);gap:18px;padding-block:32px}
+ .about-section>img{width:68px;height:68px}
+ .about-section h2{font-size:26px}
+ .about-section p,.faq-list p{font-size:14px}
+ .about-section .section-link{grid-column:1/-1;justify-self:start;min-height:44px;display:flex;align-items:center}
+ .faq-section{gap:8px;padding-block:28px}
+ .faq-list summary{font-size:14px}
+ .site-footer{font-size:10px;gap:4px 20px;padding-block:20px}
+ .bottom-nav a,.bottom-nav button{font-size:11px}
+}
+@media(max-width:360px){
+ .rank-fighter{gap:7px}
+ .rank-fighter .portrait{width:64px;height:96px}
+ .rank-fighter-name{font-size:16px}
+ .rank-table th:last-child{width:84px}
+ .rank-table .record{font-size:16px;width:4.4em}
+ .rank-table .record-label{font-size:7px}
+ .champion-row{grid-template-columns:82px minmax(0,1fr);gap:10px}
+ .champion-row>.portrait{width:82px}
+ .champion-row h2{font-size:21px}
+ .champion-row .record{font-size:17px}
+ .champion-row .record-label{font-size:7px}
+ .home-hero-content h1{font-size:42px}
+}

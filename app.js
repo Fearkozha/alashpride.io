@@ -48,7 +48,7 @@ function championCard(d){
 }
 function rankingBlock(d){
  const ids=d.ranking.map(id=>id===d.champion?null:id);
- return `<section class="division-block" aria-label="${esc(d.name)}"><h2>${d.name} <span>— ${d.limit}</span></h2>${championCard(d)}<table class="rank-table"><caption class="sr-only">Топ-10: ${d.name}. Чемпион отдельно.</caption><thead><tr><th scope="col">#</th><th scope="col">БОЕЦ</th><th scope="col">СТРАНА</th><th scope="col">РЕКОРДЫ</th></tr></thead><tbody>${Array.from({length:10},(_,i)=>{const f=fighterById(ids[i]);return `<tr class="${f?'':'unfilled'}"><td>${i+1}</td><td>${f?`<span class="rank-fighter">${portrait(f)}<span>${esc(f.name)}</span></span>`:'Будет объявлен'}</td><td>${f?flag(f):'—'}</td><td>${f?record(f):'—'}</td></tr>`;}).join('')}</tbody></table></section>`;
+ return `<section class="division-block" aria-label="${esc(d.name)}"><h2>${esc(d.name)} <span>— ${esc(d.limit)}</span></h2>${championCard(d)}<table class="rank-table"><caption class="sr-only">Топ-10: ${esc(d.name)}. Чемпион отдельно.</caption><thead><tr><th scope="col">#</th><th scope="col">БОЕЦ</th><th scope="col">РЕКОРДЫ</th></tr></thead><tbody>${Array.from({length:10},(_,i)=>{const f=fighterById(ids[i]);return `<tr class="${f?'':'unfilled'}"><td>${i+1}</td><td>${f?`<span class="rank-fighter">${portrait(f)}<span class="rank-fighter-info"><span class="rank-fighter-name">${esc(f.name)}</span>${flag(f)}</span></span>`:'Будет объявлен'}</td><td>${f?record(f):'—'}</td></tr>`;}).join('')}</tbody></table></section>`;
 }
 function rankings(params){
  const selected=params.get('weight')||'70';

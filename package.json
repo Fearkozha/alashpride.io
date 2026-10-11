@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "esbuild admin.source.js --bundle --minify --format=iife --outfile=admin.bundle.js && esbuild public.source.js --bundle --minify --format=iife --outfile=rankings.bundle.js && esbuild navigation.source.jsx --bundle --minify --format=iife --outfile=navigation.bundle.js",
-    "test": "node --test rankings.test.js admin.test.js"
+    "test": "node --test rankings.test.js admin.test.js public.test.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.117.2",
