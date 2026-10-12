@@ -108,7 +108,8 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,su
 .record-pair .record{font-variant-numeric:tabular-nums}
 /* Champions remain distinct without dwarfing the contenders. */
 .champion-card:not(.vacant){grid-template-columns:minmax(0,.85fr) minmax(0,1fr);align-items:end;min-height:320px;gap:26px;padding:28px;border:1px solid #673035;border-top:3px solid var(--red);border-radius:3px;background:radial-gradient(ellipse at 15% 90%,#383131,transparent 65%),#191717}
-.champion-card:not(.vacant)>.portrait{width:100%;height:360px}
+.champion-card:not(.vacant)>.portrait{width:100%;height:290px}
+@media(min-width:761px){.rankings-grid .champion-card:not(.vacant)>.portrait{height:360px}}
 .champion-copy h3{font-size:clamp(27px,2.7vw,38px);line-height:1.15;min-height:2.3em;margin:18px 0 14px}
 .champion-copy>p{margin-bottom:20px}
 .champion-marker{font-size:11px;letter-spacing:.12em;color:#ff5961}
