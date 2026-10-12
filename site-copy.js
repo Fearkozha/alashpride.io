@@ -19,7 +19,7 @@ window.ALASH_COPY_FIELDS = [
  ['Главная','Надпись над баннером','.home-hero .eyebrow','KAZAKHSTAN MMA LEAGUE'],
  ['Главная','Главный заголовок','.home-hero h1','ALASH PRIDE','first'],
  ['Главная','Слоган','.home-hero h1 span','СИЛА. ЧЕСТЬ. НАСЛЕДИЕ.'],
- ['Главная','Кнопка рейтинга','.home-hero .primary-button','СМОТРЕТЬ РЕЙТИНГИ','first'],
+ ['Главная','Кнопка рейтинга','.home-hero .primary-button','Рейтинг бойцов','first'],
  ['Главная','Заголовок турнира','.next-tournament .eyebrow','СЛЕДУЮЩИЙ ТУРНИР'],
  ['Главная','Название турнира','.next-tournament h2','ALASH PRIDE · СЕМЕЙ'],
  ['Главная','Дата турнира','.next-tournament p','Декабрь 2026 ','first'],
