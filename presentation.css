@@ -70,7 +70,9 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,su
 .home-champion-grid .champion-copy .record-line{grid-template-columns:1fr;justify-items:start;padding:8px 0}
 .home-champion-grid .record-pair{border:0;background:none}
 .home-champion-grid .record{font-size:21px}
-.rank-fighter .portrait:not(.placeholder),.champion-card:not(.vacant)>.portrait:not(.placeholder),.champion-row>.portrait:not(.placeholder){object-fit:cover;object-position:center top}
+.rank-fighter .portrait:not(.placeholder){object-fit:cover;object-position:center top}
+/* Keep championship belts visible: show the whole supplied portrait, without cropping. */
+.champion-card:not(.vacant)>.portrait,.champion-row>.portrait{object-fit:contain;object-position:center;align-self:center}
 /* Rankings use stable portrait frames and aligned statistics. */
 .weight-tabs{display:flex;flex-wrap:wrap;overflow:visible;border:0;border-radius:0;gap:8px;margin:28px 0 36px;padding:0}
 .weight-tabs a{flex:1 0 64px;min-width:0;min-height:48px;border:1px solid #3a3a3a;border-radius:2px;padding:12px 14px;background:#181818;font-size:15px;letter-spacing:.035em}
@@ -107,6 +109,7 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,su
 /* Champions remain distinct without dwarfing the contenders. */
 .champion-card:not(.vacant){grid-template-columns:minmax(0,.85fr) minmax(0,1fr);align-items:end;min-height:320px;gap:26px;padding:28px;border:1px solid #673035;border-top:3px solid var(--red);border-radius:3px;background:radial-gradient(ellipse at 15% 90%,#383131,transparent 65%),#191717}
 .champion-card:not(.vacant)>.portrait{width:100%;height:290px}
+@media(min-width:761px){.rankings-grid .champion-card:not(.vacant)>.portrait{height:360px}}
 .champion-copy h3{font-size:clamp(27px,2.7vw,38px);line-height:1.15;min-height:2.3em;margin:18px 0 14px}
 .champion-copy>p{margin-bottom:20px}
 .champion-marker{font-size:11px;letter-spacing:.12em;color:#ff5961}
