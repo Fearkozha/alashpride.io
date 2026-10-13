@@ -70,7 +70,7 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,su
 .home-champion-grid .champion-copy .record-line{grid-template-columns:1fr;justify-items:start;padding:8px 0}
 .home-champion-grid .record-pair{border:0;background:none}
 .home-champion-grid .record{font-size:21px}
-.rank-fighter .portrait:not(.placeholder){object-fit:cover;object-position:center top}
+.rank-fighter .portrait:not(.placeholder){object-fit:contain;object-position:center bottom}
 /* Keep championship belts visible: show the whole supplied portrait, without cropping. */
 .champion-card:not(.vacant)>.portrait,.champion-row>.portrait{object-fit:contain;object-position:center;align-self:center}
 /* Rankings use stable portrait frames and aligned statistics. */
@@ -256,3 +256,30 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,su
  .fighter-card-copy{padding-inline:8px}.fighter-card-copy h2{font-size:19px}.fighter-card-copy .record{font-size:18px}.fighter-card-copy .record-label{font-size:7px}.champion-row{grid-template-columns:100px minmax(0,1fr);gap:10px 14px;padding:16px 12px}.champion-row>.portrait{width:100px}.champion-row h2{font-size:25px}.champion-copy h3{font-size:24px}.home-champion-grid .champion-copy h3{font-size:25px}.next-tournament h2{font-size:20px}.quick-links a{font-size:16px;gap:6px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Consistent portrait framing: preserve the full source image and leave headroom. */
+.rank-fighter .portrait,
+.champion-card:not(.vacant)>.portrait,
+.champion-row>.portrait,
+.fighter-photo>.portrait{
+ box-sizing:border-box;object-fit:contain;object-position:center bottom;
+}
+.rank-fighter .portrait{
+ padding:8px 5px 0;background:linear-gradient(160deg,#292929,#1e1e1e);
+ border-radius:6px;align-self:end;
+}
+.champion-card:not(.vacant)>.portrait,
+.champion-row>.portrait{
+ align-self:end;padding:10px 6px 0;
+}
+.fighter-photo{
+ background:linear-gradient(155deg,#292929,#171717);
+ border-bottom:1px solid #303030;
+}
+.fighter-photo>.portrait{padding:16px 12px 0}
+@media(max-width:760px){
+ .rank-fighter .portrait{padding:6px 4px 0}
+ .fighter-photo>.portrait{padding:10px 7px 0}
+ .champion-card:not(.vacant)>.portrait,.champion-row>.portrait{padding:8px 4px 0}
+}
+
