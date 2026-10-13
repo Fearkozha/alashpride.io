@@ -151,7 +151,7 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,su
 .events-section>.section-heading h2{font-size:clamp(38px,5.2vw,68px);font-weight:600;letter-spacing:-.025em}
 .events-section .event-cards{gap:24px}
 .events-section .event-card{border-radius:3px;padding:30px;min-height:330px;background:#191919}
-.events-section .upcoming-card{background:linear-gradient(90deg,#121212f2,#121212b8),url("assets/octagon-768.webp") center/cover,#191919}
+.events-section .upcoming-card{background:linear-gradient(90deg,#121212f2,#121212b8),url("assets/octagon-realistic-768.webp") center/cover,#191919}
 .events-section .card-top{font-size:10px;letter-spacing:.09em}
 .events-section .card-title{margin:26px 0 10px;gap:22px}
 .events-section .card-title h3{font-size:34px}
