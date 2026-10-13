@@ -308,3 +308,49 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,su
  .champion-row>.portrait{height:235px}
 }
 
+/* Compact champion composition: the portrait ends at the card boundary. */
+.champion-card:not(.vacant),
+.home-champion-grid .champion-card:not(.vacant){
+ min-height:0;padding:0;gap:0;overflow:hidden;
+ grid-template-columns:48% minmax(0,1fr);align-items:end;
+}
+.champion-card:not(.vacant)>.portrait,
+.rankings-grid .champion-card:not(.vacant)>.portrait,
+.home-champion-grid .champion-card:not(.vacant)>.portrait{
+ height:300px;width:100%;padding:10px 0 0;align-self:end;
+ object-fit:contain;object-position:center bottom;border-radius:0;
+}
+.champion-copy{align-self:center;padding:20px 18px 20px 12px}
+.champion-copy h3,.home-champion-grid .champion-copy h3{min-height:0;margin:10px 0;font-size:28px;line-height:1.15}
+.champion-copy>p{margin:0 0 10px}
+.champion-copy>.record-pair{margin-top:0}
+.champion-copy .record-line,.home-champion-grid .champion-copy .record-line{
+ grid-template-columns:1fr;justify-items:start;gap:3px;min-height:0;padding:7px 0;
+}
+.champion-copy .record{font-size:23px}
+.champion-row:not(.vacant-row){padding-bottom:0;min-height:0}
+.champion-row:not(.vacant-row)>div{padding-bottom:18px}
+.champion-row>.portrait{padding-bottom:0;align-self:end}
+@media(min-width:1160px){
+ .rankings-grid .champion-card:not(.vacant)>.portrait{height:340px}
+}
+@media(max-width:760px){
+ .champion-card:not(.vacant),
+ .home-champion-grid .champion-card:not(.vacant){padding:0;gap:0;min-height:0;grid-template-columns:48% minmax(0,1fr)}
+ .champion-card:not(.vacant)>.portrait,
+ .rankings-grid .champion-card:not(.vacant)>.portrait,
+ .home-champion-grid .champion-card:not(.vacant)>.portrait{height:250px;padding:8px 0 0}
+ .champion-copy{padding:16px 12px 16px 8px}
+ .champion-copy h3,.home-champion-grid .champion-copy h3{font-size:24px;margin:9px 0;min-height:0}
+ .champion-copy .record-label{font-size:9px}
+ .champion-copy .record{font-size:22px}
+ .champion-copy .record-line,.home-champion-grid .champion-copy .record-line{min-height:0;padding:6px 0;gap:3px}
+ .champion-row:not(.vacant-row){padding-bottom:0;min-height:0}
+ .home-champion-grid{gap:18px}
+}
+@media(max-width:360px){
+ .champion-copy{padding-right:9px}
+ .champion-copy h3,.home-champion-grid .champion-copy h3{font-size:21px}
+ .champion-copy .record{font-size:20px}
+}
+
