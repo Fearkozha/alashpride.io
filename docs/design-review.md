@@ -73,3 +73,17 @@ generation used the existing `logo.jpg` as its branding reference and placed the
 logo on the mat. Generated originals remain outside the repository; only optimized
 WebP delivery assets are checked in. Fighter photos and statistics are the existing
 owner-supplied content, not generated replacements.
+
+### Realistic arena revision (2026-10-13)
+
+Replaced the stylized octagon with a new built-in imagegen generation referenced
+from the original `logo.jpg`. Direction: documentary sports venue photography,
+eight straight fence panels, padded posts, an integrated closed gate, matte grey
+canvas, original logo printed at center, empty seating and neutral overhead lights.
+No smoke, lasers, red glow, wet floor or CGI gloss. This is generated artwork,
+not a photograph of a documented ALASH PRIDE venue.
+
+The 1536×1024 and 768×512 WebP files use new `octagon-realistic-*` filenames;
+hero srcset, tournament background and social preview all use the same revision.
+Stylesheet and app query versions are updated so cached pages load the new assets.
+Existing layout, fighter content and the latest champion-card fixes are preserved.
