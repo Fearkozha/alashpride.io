@@ -363,7 +363,7 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,su
 @media(max-width:760px){
  .champion-card:not(.vacant),.home-champion-grid .champion-card:not(.vacant){
   grid-template-columns:minmax(0,44fr) minmax(0,56fr);
-  grid-template-rows:auto auto 1fr auto;align-items:start;
+  grid-template-rows:auto auto auto auto;align-items:start;
  }
  .champion-card:not(.vacant)>.portrait,
  .rankings-grid .champion-card:not(.vacant)>.portrait,
