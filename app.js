@@ -57,9 +57,25 @@ function rankings(params){
 }
 function fighterCard(f){return `<article class="fighter-card"><div class="fighter-photo">${portrait(f)}${isChampion(f)?`<span class="small-crown" aria-label="Чемпион">${icon('champions')}</span>`:''}<span class="photo-pending">${f.photo?'':'ФОТО СКОРО'}</span></div><div class="fighter-card-copy"><h2>${esc(f.name)}</h2><p class="fighter-card-country">${flag(f)}</p><div><span>${(f.divisions||[f.division]).map(id=>divisionById(id).limit).join(' / ')}</span>${record(f)}</div></div></article>`;}
 let filters={q:'',weight:'all',country:'all'};
+function readFighterFilters(params){
+ filters={q:params.get('q')||'',weight:divisionById(params.get('weight'))?params.get('weight'):'all',country:countryCatalog[params.get('country')]?params.get('country'):'all'};
+}
+function syncFighterFilters(){
+ const params=new URLSearchParams();
+ if(filters.q)params.set('q',filters.q);
+ if(filters.weight!=='all')params.set('weight',filters.weight);
+ if(filters.country!=='all')params.set('country',filters.country);
+ history.replaceState(null,'','#fighters'+(params.size?'?'+params:''));
+}
+function filterEvents(value){
+ const selected=['upcoming','past'].includes(value)?value:'all';
+ main.querySelectorAll('[data-filter]').forEach(button=>{const active=button.dataset.filter===selected;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));});
+ main.querySelectorAll('[data-status]').forEach(card=>{card.hidden=selected!=='all'&&card.dataset.status!==selected;});
+ return selected;
+}
 function fighterResults(){const q=filters.q.trim().toLocaleLowerCase('ru');return data.fighters.filter(f=>(filters.weight==='all'||(f.divisions||[f.division]).includes(filters.weight))&&(filters.country==='all'||countryCodes(f).includes(filters.country))&&f.name.toLocaleLowerCase('ru').includes(q));}
 function updateFighters(){const results=fighterResults();document.querySelector('#fighter-grid').innerHTML=results.length?results.map(fighterCard).join(''):'<div class="empty-state"><h2>Бойцы не найдены</h2><p>Попробуйте другое имя или сбросьте фильтры.</p><button class="text-button" data-reset-filters>Сбросить фильтры →</button></div>';document.querySelector('#fighter-count').textContent=`Найдено: ${results.length}`;}
-function fighters(){return `<div class="shell page">${heading('БОЙЦЫ','Лица Alash Pride. Характер за каждым именем.')}${notice()}<div class="fighter-controls"><label class="search-field">${icon('search')}<input type="search" id="fighter-search" value="${esc(filters.q)}" placeholder="Поиск бойца…" aria-label="Поиск бойца по имени" autocomplete="off"></label><div class="filter-selects"><label><span class="sr-only">Весовая категория</span><select id="weight-filter"><option value="all">Все категории</option>${data.divisions.map(d=>`<option value="${d.id}" ${filters.weight===d.id?'selected':''}>${d.limit}</option>`).join('')}</select></label><label><span class="sr-only">Страна</span><select id="country-filter">${[['all','Все страны'],...Object.entries(countryCatalog).map(([code,country])=>[code,`${code} · ${country.name}`])].map(([id,text])=>`<option value="${id}" ${filters.country===id?'selected':''}>${text}</option>`).join('')}</select></label></div></div><p id="fighter-count" class="result-count" role="status"></p><div id="fighter-grid" class="fighter-grid"></div></div>`;}
+function fighters(){return `<div class="shell page">${heading('БОЙЦЫ','Лица Alash Pride. Характер за каждым именем.')}${notice()}<div class="fighter-controls"><label class="search-field">${icon('search')}<input type="search" id="fighter-search" name="q" value="${esc(filters.q)}" placeholder="Поиск бойца…" aria-label="Поиск бойца по имени" autocomplete="off"></label><div class="filter-selects"><label><span class="sr-only">Весовая категория</span><select id="weight-filter" name="weight" autocomplete="off"><option value="all">Все категории</option>${data.divisions.map(d=>`<option value="${d.id}" ${filters.weight===d.id?'selected':''}>${d.limit}</option>`).join('')}</select></label><label><span class="sr-only">Страна</span><select id="country-filter" name="country" autocomplete="off">${[['all','Все страны'],...Object.entries(countryCatalog).map(([code,country])=>[code,`${code} · ${country.name}`])].map(([id,text])=>`<option value="${id}" ${filters.country===id?'selected':''}>${text}</option>`).join('')}</select></label></div></div><p id="fighter-count" class="result-count" role="status"></p><div id="fighter-grid" class="fighter-grid"></div></div>`;}
 function champions(){return `<div class="shell page">${heading('ЧЕМПИОНЫ ЛИГИ','Один пояс. Одна вершина. Каждая весовая.')}${notice()}<div class="champions-list">${data.divisions.map(d=>{const f=fighterById(d.champion);return f?`<article class="champion-row"><strong class="division-weight">${d.limit}</strong>${portrait(f)}<div><h2>${esc(f.name)}</h2><p>${flag(f)}</p>${record(f)}</div></article>`:`<div class="champion-row vacant-row"><strong class="division-weight">${d.limit}</strong><div><h2>Скоро объявим</h2><p>${d.name}</p></div></div>`;}).join('')}</div></div>`;}
 function home(){return `<div class="home-page">
  <section class="home-hero"><div class="shell hero-layout"><div class="home-hero-content"><p class="eyebrow">KAZAKHSTAN MMA LEAGUE</p><h1>ALASH PRIDE<span>СИЛА. ЧЕСТЬ. НАСЛЕДИЕ.</span></h1><div class="hero-actions">${primary('#rankings','Рейтинг бойцов')}<a class="secondary-button" href="#events">Турниры <span aria-hidden="true">↗</span></a></div></div><picture class="octagon-art"><source srcset="assets/octagon-realistic-768.webp 768w, assets/octagon-realistic-1536.webp 1536w" sizes="(max-width: 760px) 100vw, 65vw" type="image/webp"><img src="assets/octagon-realistic-1536.webp" alt="Октагон ALASH PRIDE с логотипом лиги на настиле, чёрной клеткой и освещением арены" width="1536" height="1024" fetchpriority="high"></picture></div></section>
@@ -73,21 +89,24 @@ function render(){
  if(route==='fighter'){location.replace('#fighters');return;}
  if(path==='main'){main.focus();return;}
  const renders={home,rankings:()=>rankings(params),fighters,champions,events:()=>template('events'),tickets:()=>template('tickets'),about:()=>template('about')};
+ if(route==='fighters')readFighterFilters(params);
  main.innerHTML=(renders[route]||home)();
  applyMedia();
  applyCopy();
- if(route==='fighters'){updateFighters();applyCopy();if(params.has('search'))document.querySelector('#fighter-search').focus();}
+ const focusSearch=route==='fighters'&&params.has('search')&&window.matchMedia?.('(min-width: 761px)').matches;
+ if(route==='fighters'){updateFighters();applyCopy();if(focusSearch)document.querySelector('#fighter-search').focus();}
+ if(route==='events')filterEvents(params.get('status'));
  document.title=`${route==='fighter'?(fighterById(path.split('/')[1])?.name||'Боец'):links.find(([id])=>id===route)?.[1]||'Alash Pride'} — Alash Pride League`;
  window.scrollTo({top:0,behavior:'instant'});
- if(!(route==='fighters'&&params.has('search')))main.focus({preventScroll:true});
+ if(!focusSearch)main.focus({preventScroll:true});
 }
 document.addEventListener('click',event=>{
  const target=event.target;
- if(target.closest('[data-reset-filters]')){filters={q:'',weight:'all',country:'all'};render();document.querySelector('#fighter-search').focus();}
- const filter=target.closest('[data-filter]');if(filter){document.querySelectorAll('[data-filter]').forEach(b=>{const active=b===filter;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});document.querySelectorAll('[data-status]').forEach(card=>{card.hidden=filter.dataset.filter!=='all'&&card.dataset.status!==filter.dataset.filter;});}
+ if(target.closest('[data-reset-filters]')){filters={q:'',weight:'all',country:'all'};syncFighterFilters();render();document.querySelector('#fighter-search').focus();}
+ const filter=target.closest('[data-filter]');if(filter){const status=filterEvents(filter.dataset.filter);history.replaceState(null,'','#events'+(status==='all'?'':'?status='+status));}
 });
-document.addEventListener('input',event=>{if(event.target.id==='fighter-search'){filters.q=event.target.value;updateFighters();applyCopy();}});
-document.addEventListener('change',event=>{if(event.target.id==='weight-filter')filters.weight=event.target.value;else if(event.target.id==='country-filter')filters.country=event.target.value;else return;updateFighters();applyCopy();});
+document.addEventListener('input',event=>{if(event.target.id==='fighter-search'){filters.q=event.target.value;syncFighterFilters();updateFighters();applyCopy();}});
+document.addEventListener('change',event=>{if(event.target.id==='weight-filter')filters.weight=event.target.value;else if(event.target.id==='country-filter')filters.country=event.target.value;else return;syncFighterFilters();updateFighters();applyCopy();});
 window.addEventListener('hashchange',render);
 window.addEventListener('alash:rankings',()=>{const y=window.scrollY;render();window.scrollTo({top:y,behavior:'instant'});});
 render();
