@@ -1,5 +1,9 @@
 /* Public visual layer. The existing router, React navigation and owner data remain authoritative. */
 :root{--bg:#101010;--panel:#191919;--border:#333;--muted:#aaa;--radius:4px;--space-section:72px}
+html{color-scheme:dark;scroll-padding-block:92px 16px}
+:where(a,button,input,select,summary,h1,h2,h3){scroll-margin-block:12px}
+#site-menu{overscroll-behavior:contain}
+#main:focus-visible{outline:2px solid #aaa;outline-offset:-2px}
 .shell,.container{width:min(1280px,calc(100% - 80px))}
 body{font-size:14px}
 h1,h2,h3{text-wrap:balance}
@@ -148,14 +152,14 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,su
 /* Event and league pages share the same typography and spacing. */
 .events-section{padding-block:48px 72px}
 .events-section .section-heading{padding-bottom:26px;border-bottom:1px solid #333;margin-bottom:32px}
-.events-section>.section-heading h2{font-size:clamp(38px,5.2vw,68px);font-weight:600;letter-spacing:-.025em}
+.events-section>.section-heading h1{font-size:clamp(38px,5.2vw,68px);font-weight:600;letter-spacing:-.025em}
 .events-section .event-cards{gap:24px}
 .events-section .event-card{border-radius:3px;padding:30px;min-height:330px;background:#191919}
 .events-section .upcoming-card{background:linear-gradient(90deg,#121212f2,#121212b8),url("assets/octagon-realistic-768.webp") center/cover,#191919}
 .events-section .card-top{font-size:10px;letter-spacing:.09em}
 .events-section .card-title{margin:26px 0 10px;gap:22px}
-.events-section .card-title h3{font-size:34px}
-.events-section .card-title h3 span{font-size:20px}
+.events-section .card-title h2{font-size:34px}
+.events-section .card-title h2 span{font-size:20px}
 .events-section .event-number{font-size:70px;color:#a8a8a8}
 .events-section .card-date{font-size:25px;margin-top:16px}
 .events-section .event-card>p{font-size:14px}
@@ -163,12 +167,13 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,su
 .event-filters button{min-height:48px;font-size:13px}
 .tickets-section{background:#171717;border-bottom:0;margin:0}
 .ticket-row{min-height:440px;padding-block:70px;gap:40px}
-.ticket-title h2{font-size:44px}
+.ticket-title h1{font-size:44px}
+.ticket-title h1,.about-section h1{font-family:var(--display);font-weight:500;line-height:1.2}
 .ticket-copy p{font-size:15px;line-height:1.8}
 .ticket-copy strong{font-size:20px}
 .about-section{padding-block:70px;gap:36px;grid-template-columns:150px minmax(0,1fr) auto}
 .about-section>img{width:150px;height:150px}
-.about-section h2{font-size:44px;letter-spacing:-.02em}
+.about-section h1{font-size:44px;letter-spacing:-.02em}
 .about-section p,.faq-list p{font-size:16px;line-height:1.85;max-width:66ch}
 .faq-section{padding-block:50px 76px}
 .faq-section h2{font-size:32px}
@@ -195,6 +200,7 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,su
 }
 @media(max-width:760px){
  :root{--space-section:44px}
+ html{scroll-padding-block:84px calc(85px + env(safe-area-inset-bottom))}
  .shell,.container{width:calc(100% - 32px)}
  .site-header{height:68px}.identity{font-size:20px}.identity img{width:43px;height:43px}.header-row{gap:12px}.header-actions{gap:4px}.desktop-nav{display:none}
  .page{padding-block:30px 44px}.page-heading{padding-bottom:22px;margin-bottom:22px}.page-heading .eyebrow{display:block;font-size:9px}
@@ -245,9 +251,9 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,su
  .champions-list{grid-template-columns:1fr;gap:16px;max-width:none}.champion-row{grid-template-columns:120px minmax(0,1fr);gap:10px 18px;padding:20px 16px;min-height:280px}.champion-row>.portrait{width:120px;height:210px}.champion-row .division-weight{font-size:25px}.champion-row h2{font-size:28px}.champion-row .record-line{grid-template-columns:1fr;justify-items:center;gap:5px;min-height:52px;padding:7px}.champion-row .record{font-size:22px}.champion-row .record-label{font-size:9px}.champion-row.vacant-row{min-height:150px}
  .fighter-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.fighter-photo{aspect-ratio:3/4}.fighter-card-copy{padding:14px 10px}.fighter-card-copy h2{font-size:21px;min-height:2.4em}.fighter-card-country{min-height:32px;margin:10px 0}.fighter-card-copy .record-pair{grid-template-columns:1fr}.fighter-card-copy .record-line{grid-template-columns:1fr auto;min-height:36px;gap:2px;padding:5px 0;justify-items:start}.fighter-card-copy .record-line+.record-line{border:0}.fighter-card-copy .record-label{font-size:8px;white-space:normal}.fighter-card-copy .record-label img{display:none}.fighter-card-copy .record{font-size:20px;width:4.1em}.fighter-card-copy>div>span:first-child{font-size:13px}.small-crown{padding:5px;top:8px;right:8px}.small-crown svg{width:17px;height:17px}
  .search-field input,.filter-selects select{min-height:48px;font-size:16px}.result-count{margin:20px 0 15px;font-size:12px}
- .events-section{padding-block:30px 44px}.events-section>.section-heading h2{font-size:40px}.events-section .section-heading{gap:18px;padding-bottom:20px;margin-bottom:24px}.event-filters{gap:22px}.event-filters button{font-size:12px}.events-section .event-cards{grid-template-columns:1fr;gap:16px}.events-section .event-card{padding:24px;min-height:0}.events-section .card-title{margin:18px 0 10px;gap:20px;align-items:center}.events-section .card-title h3{font-size:29px}.events-section .card-title h3 span{font-size:18px}.events-section .event-number{font-size:58px}.events-section .card-date{font-size:23px}.events-section .event-card>p{font-size:13px}.events-section .card-action{font-size:13px;min-height:48px}
- .ticket-row{grid-template-columns:1fr;min-height:0;padding-block:42px;gap:28px}.ticket-title h2{font-size:38px}.ticket-title h2 span{display:block;margin:10px 0 0}.ticket-copy p{font-size:15px}.ticket-row .button{width:100%}
- .about-section{grid-template-columns:64px minmax(0,1fr);padding-block:38px;gap:22px 18px}.about-section>img{width:64px;height:64px}.about-section h2{font-size:30px}.about-section p{font-size:14px}.about-section .section-link{grid-column:2;font-size:13px}.faq-section{padding-block:30px 44px;gap:15px}.faq-list summary{font-size:14px;min-height:64px}.faq-list p{font-size:14px}.faq-section h2{font-size:28px}
+ .events-section{padding-block:30px 44px}.events-section>.section-heading h1{font-size:40px}.events-section .section-heading{gap:18px;padding-bottom:20px;margin-bottom:24px}.event-filters{gap:22px}.event-filters button{font-size:12px}.events-section .event-cards{grid-template-columns:1fr;gap:16px}.events-section .event-card{padding:24px;min-height:0}.events-section .card-title{margin:18px 0 10px;gap:20px;align-items:center}.events-section .card-title h2{font-size:29px}.events-section .card-title h2 span{font-size:18px}.events-section .event-number{font-size:58px}.events-section .card-date{font-size:23px}.events-section .event-card>p{font-size:13px}.events-section .card-action{font-size:13px;min-height:48px}
+ .ticket-row{grid-template-columns:1fr;min-height:0;padding-block:42px;gap:28px}.ticket-title h1{font-size:38px}.ticket-title h1 span{display:block;margin:10px 0 0}.ticket-copy p{font-size:15px}.ticket-row .button{width:100%}
+ .about-section{grid-template-columns:64px minmax(0,1fr);padding-block:38px;gap:22px 18px}.about-section>img{width:64px;height:64px}.about-section h1{font-size:30px}.about-section p{font-size:14px}.about-section .section-link{grid-column:2;font-size:13px}.faq-section{padding-block:30px 44px;gap:15px}.faq-list summary{font-size:14px;min-height:64px}.faq-list p{font-size:14px}.faq-section h2{font-size:28px}
  .site-footer{padding-block:24px;gap:6px 24px;font-size:10px}.bottom-nav a,.bottom-nav button{font-size:11px}
 }
 @media(max-width:360px){
